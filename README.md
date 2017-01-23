@@ -14,7 +14,7 @@ $tmpfile = new tmpfile('Hello, world!');
 
 /* ... */
 
-// Поместить в объект
+// Передать в объект
 new SplFileInfo($tmpfile);
 
 // Переместить в другую папку
