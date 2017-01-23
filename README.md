@@ -9,12 +9,17 @@ require __DIR__ . '/vendor/autoload.php';
 // Создать временный файл
 $tmpfile = new tmpfile;
 
-// Создать временный файл с контентом
+// Сразу с контентом
 $tmpfile = new tmpfile('Hello, world!');
 
 /* ... */
 
+// Поместить в объект
 new SplFileInfo($tmpfile);
+
+// Переместить
 rename($tmpfile, __DIR__ . '/picture.jpg');
+
+// Проверить на наличие
 file_exists($tmpfile);
 ```
