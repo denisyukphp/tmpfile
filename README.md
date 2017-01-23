@@ -13,28 +13,22 @@ $tmpfile = new tmpfile;
 $tmpfile = new tmpfile('Hello, world!');
 
 // Записать в файл
-$tmpfile->write('Lorem ');
-# file_put_contents($tmpfile, 'Lorem ');
+$tmpfile->write('Lorem '); # file_put_contents($tmpfile, 'Lorem ');
 
 // Записать в конец файла
-$tmpfile->write('ipsum.', FILE_APPEND);
-# file_put_contents($tmpfile, 'ipsum.', FILE_APPEND);
+$tmpfile->write('ipsum.', FILE_APPEND); # file_put_contents($tmpfile, 'ipsum.', FILE_APPEND);
 
 // Короткий способ записать в конец файла
-$tmpfile->puts('ipsum.');
-# file_put_contents($tmpfile, 'ipsum.', FILE_APPEND);
+$tmpfile->puts('ipsum.'); # file_put_contents($tmpfile, 'ipsum.', FILE_APPEND);
 
 // Прочитать весь файл в строку
-$tmpfile->read();
-# file_get_contents($tmpfile);
+$tmpfile->read(); # file_get_contents($tmpfile);
 
 // Прочитать часть файла
-$tmpfile->read(0, 5);
-# file_get_contents($tmpfile, false, null, 0, 5);
+$tmpfile->read(0, 5); # file_get_contents($tmpfile, false, null, 0, 5);
 
 // Досрочно удалить файл
-$tmpfile->delete();
-# unlink($tmpfile);
+$tmpfile->delete(); # unlink($tmpfile);
 
 /* ... */
 
