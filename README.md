@@ -27,7 +27,7 @@ $tmpfile->write('abc');
 $tmpfile->write('def', FILE_APPEND);
 
 // Короткий способ
-$tmpfile->puts('ghi');
+$tmpfile->puts('def');
 
 // Прочитать весь файл
 $tmpfile->read();
