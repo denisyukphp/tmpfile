@@ -23,7 +23,7 @@ $tmpfile = new tmpfile('Hello, world!');
 // Записать в файл
 $tmpfile->write('abc');
 
-// Дописать в конец файла
+// Дописать в конец
 $tmpfile->write('def', FILE_APPEND);
 
 // Способ короче
