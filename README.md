@@ -29,4 +29,7 @@ rename($tmpfile, __DIR__ . '/picture.jpg');
 // Проверить на наличие
 file_exists($tmpfile);
 ```
-[image](https://hsto.org/files/e9b/a97/31d/e9ba9731d607484cb3abfdd51fd494d5.png) [Александр Денисюк](https://denisyuk.by), 2017
+
+[![Latest Stable Version](https://hsto.org/files/e9b/a97/31d/e9ba9731d607484cb3abfdd51fd494d5.png)](https://packagist.org/packages/phpunit/phpunit)
+
+[Александр Денисюк](https://denisyuk.by), 2017
