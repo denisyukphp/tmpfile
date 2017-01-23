@@ -1,0 +1,25 @@
+{
+    "name": "denisyukphp/tmpfile",
+    "description": "Class for create temporary file as alternative to tmpfile() function.",
+    "keywords": ["file", "temporary", "temp", "tmp", "tempnam", "tmpfile", "auto", "delete"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksandr Denisyuk",
+            "email": "a@denisyuk.by",
+            "homepage": "https://denisyuk.by",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "files": [
+            "src/tmpfile.php"
+        ]
+    }
+}
