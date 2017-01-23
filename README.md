@@ -17,7 +17,7 @@ $tmpfile = new tmpfile('Hello, world!');
 // Поместить в объект
 new SplFileInfo($tmpfile);
 
-// Переместить
+// Переместить в другую папку
 rename($tmpfile, __DIR__ . '/picture.jpg');
 
 // Проверить на наличие
