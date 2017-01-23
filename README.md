@@ -27,3 +27,5 @@ rename($tmpfile, __DIR__ . '/picture.jpg');
 // Проверить на наличие
 file_exists($tmpfile);
 ```
+
+&copy [Александр Денисюк](https://denisyuk.by), 2017
