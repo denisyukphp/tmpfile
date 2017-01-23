@@ -21,27 +21,21 @@ $tmpfile = new tmpfile('Hello, world!');
 /* ... */
 
 // Записать в файл
-# file_put_contents($tmpfile, 'abc');
 $tmpfile->write('abc');
 
 // Дописать в конец файла
-# file_put_contents($tmpfile, 'def', FILE_APPEND);
 $tmpfile->write('def', FILE_APPEND);
 
 // Короткий способ
-# file_put_contents($tmpfile, 'ghi', FILE_APPEND);
 $tmpfile->puts('ghi');
 
 // Прочитать весь файл
 $tmpfile->read();
-# file_get_contents($tmpfile);
 
 // Какую-то часть файла
-# file_get_contents($tmpfile, false, null, 7, 5);
 $tmpfile->read(7, 5);
 
 // Удалить файл
-# unlink($tmpfile);
 $tmpfile->delete();
 
 /* ... */
