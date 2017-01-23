@@ -1,7 +1,7 @@
 # tmpfile
 Класс для работы с временным файлом на PHP и альтернатива стандартной функции `tmpfile()`. Подробнее об устройстве класса написано на [Хабре](https://habrahabr.ru/post/320078/). В свой проект можно подключить через Composer:
 
-```dos
+```
 composer require denisyukphp/tmpfile
 ```
 
