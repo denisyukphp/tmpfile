@@ -5,6 +5,8 @@
 composer require denisyukphp/tmpfile
 ```
 
+Класс поддерживает стандартный набор CRUD-операций. Методы для записи и чтения являются обёртками для `file_put_contents()` и `file_get_contents()`.
+
 ```php
 <?php
 
