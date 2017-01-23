@@ -20,6 +20,26 @@ $tmpfile = new tmpfile('Hello, world!');
 
 /* ... */
 
+// Записать в файл
+$tmpfile->write('abc');
+
+// Дописать в конец файла
+$tmpfile->write('def', FILE_APPEND);
+
+// Короткий способ
+$tmpfile->puts('ghi');
+
+// Прочитать весь файл
+$tmpfile->read();
+
+// Какую-то часть файла
+$tmpfile->read(7, 5);
+
+// Удалить файл
+$tmpfile->delete();
+
+/* ... */
+
 // Передать в объект
 new SplFileInfo($tmpfile);
 
