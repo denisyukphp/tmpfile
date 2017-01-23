@@ -1,5 +1,7 @@
 # tmpfile
-Класс для работы с временным файлом на PHP. Альтернатива стандартной функции tmpfile(). Подробнее об автоудалении написано на [Хабре](https://habrahabr.ru/post/320078/). В свой проект можно скачать через Composer командой `composer require denisyukphp/tmpfile`.
+Класс для работы с временным файлом на PHP. Альтернатива стандартной функции tmpfile(). Подробнее об автоудалении написано на [Хабре](https://habrahabr.ru/post/320078/). В свой проект можно скачать через Composer:
+
+`composer require denisyukphp/tmpfile`
 
 ```php
 <?php
