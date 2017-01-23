@@ -28,4 +28,4 @@ rename($tmpfile, __DIR__ . '/picture.jpg');
 file_exists($tmpfile);
 ```
 
-&copy [Александр Денисюк](https://denisyuk.by), 2017
+&copy; [Александр Денисюк](https://denisyuk.by), 2017
