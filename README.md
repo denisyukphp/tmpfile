@@ -30,4 +30,4 @@ rename($tmpfile, __DIR__ . '/picture.jpg');
 file_exists($tmpfile);
 ```
 
-[Александр Денисюк](https://denisyuk.by), 2017
+(https://hsto.org/files/e9b/a97/31d/e9ba9731d607484cb3abfdd51fd494d5.png) [Александр Денисюк](https://denisyuk.by), 2017
