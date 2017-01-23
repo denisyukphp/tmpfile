@@ -1,6 +1,6 @@
 # tmpfile
 
-[![Total Downloads](https://poser.pugx.org/denisyukphp/tmpfile/downloads)](https://packagist.org/packages/denisyukphp/tmpfile) [![License](https://poser.pugx.org/denisyukphp/tmpfile/license)](https://packagist.org/packages/denisyukphp/tmpfile)
+[![Build Status](https://travis-ci.org/denisyukphp/tmpfile.svg?branch=master)](https://travis-ci.org/denisyukphp/tmpfile) [![Total Downloads](https://poser.pugx.org/denisyukphp/tmpfile/downloads)](https://packagist.org/packages/denisyukphp/tmpfile) [![License](https://poser.pugx.org/denisyukphp/tmpfile/license)](https://packagist.org/packages/denisyukphp/tmpfile)
 
 Класс для работы с временным файлом на PHP как альтернатива стандартной функции `tmpfile()`. Подробнее об устройстве класса написано на [Хабре](https://habrahabr.ru/post/320078/). В свой проект можно подключить через Composer:
 
