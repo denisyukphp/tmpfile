@@ -40,7 +40,7 @@ final class tmpfile
         $filename = tempnam(sys_get_temp_dir(), 'php');
 
         if (!$filename) {
-            throw new \Error('The function tempnam() could not create a temporary file.');
+            throw new \Error('The function tempnam() could not create a file in temporary directory.');
         }
 
         return $filename;
