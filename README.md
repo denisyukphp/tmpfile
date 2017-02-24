@@ -13,7 +13,7 @@ composer require denisyukphp/tmpfile
 ```php
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
 
 // Создать временный файл
 $tmpfile = new tmpfile;
