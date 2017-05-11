@@ -84,9 +84,9 @@ new SplFileInfo($tmpfile);
 new SplFileInfo($tmpfile->filename);
 ```
 
-## Отслеживание открытых потоков `fopen(new tmpfile, 'w')`
+## Отслеживание открытых потоков `fopen(new tmpfile, 'r+')`
 
-Класс `new tmpfile` не полностью повторяет функцию `tmpfile()`, т. к. при открытии потока `fopen(new tmpfile, 'w')` временный файл *блокируется* и не будет автоматически удалён. Решить эту проблему можно, если самостоятельно отследить не закрытый поток временного файла по URI и закрыть его через `fclose()`:
+Класс `new tmpfile` не полностью повторяет функцию `tmpfile()`, т. к. при открытии потока `fopen(new tmpfile, 'r+')` временный файл *блокируется* и не будет автоматически удалён. Решить эту проблему можно, если самостоятельно отследить не закрытый поток временного файла по URI и закрыть его через `fclose()`:
 
 ```php
 <?php
@@ -95,7 +95,7 @@ require 'vendor/autoload.php';
 
 $tmpfile = new tmpfile;
 
-$fh = fopen($tmpfile, 'w');
+$fh = fopen($tmpfile, 'r+');
 
 /* ... */
 
@@ -109,16 +109,20 @@ foreach (get_resources('stream') as $resource) {
 
     // Отклоняем не локальные потоки
     if ( ! stream_is_local($resource) ) {
-        break;
+        continue;
     }
 
     // Получаем URI ресурса
     $uri = @stream_get_meta_data($resource)['uri'];
 
-    // Закрываем ресурс, если путь временного
-    // файла совпадает с URI потока
+    // Сверяем путь временного файла с URI потока
     if ($tmpfile->filename === $uri) {
+        
+        // Закрываем ресурс
         fclose($resource);
+        
+        // Выходим из цикла
+        break;
     }
 }
 ```
