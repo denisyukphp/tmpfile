@@ -87,7 +87,7 @@ final class tmpfile
             func_get_args()
         );
 
-        return call_user_func_array('file_get_contents', $args);
+        return file_get_contents(...$args);
     }
 
     /**
