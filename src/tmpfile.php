@@ -26,8 +26,8 @@ final class tmpfile
      */
     public function __construct($data = null, $tempDir = null)
     {
-        $this->filename = $this->create();
         $this->tempDir = $tempDir;
+        $this->filename = $this->create();
 
         register_shutdown_function([$this, 'delete']);
 
