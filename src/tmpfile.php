@@ -14,13 +14,20 @@ final class tmpfile
     public $filename;
 
     /**
+     * @var string $tempDir
+     */
+    private $tempDir;
+
+    /**
      * Create instance a temporary file and register auto delete function
      *
      * @param mixed $data
+     * @param string|null $tempDir
      */
-    public function __construct($data = null)
+    public function __construct($data = null, $tempDir = null)
     {
         $this->filename = $this->create();
+        $this->tempDir = $tempDir;
 
         register_shutdown_function([$this, 'delete']);
 
@@ -37,7 +44,7 @@ final class tmpfile
      */
     private function create()
     {
-        $filename = tempnam(sys_get_temp_dir(), 'php');
+        $filename = tempnam(null === $this->tempDir ? sys_get_temp_dir() : $this->tempDir, 'php');
 
         if (!$filename) {
             throw new \Error('The function tempnam() could not create a file in temporary directory.');
