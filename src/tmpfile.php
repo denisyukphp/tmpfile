@@ -1,5 +1,7 @@
 <?php
 
+namespace tmpfile;
+
 /**
  * Class for create temporary file as alternative to tmpfile() function
  *
