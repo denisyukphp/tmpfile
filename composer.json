@@ -22,5 +22,6 @@
         "psr-4": {
             "tmpfile\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
