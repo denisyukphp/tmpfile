@@ -81,22 +81,36 @@ final class tmpfile
     }
 
     /**
-     * Read entire file or chunk into a string
+     * Read entire file or chunk
      *
      * @param int $offset
      * @param int $maxlen
      *
-     * @return string|false
+     * @return string
+     *
+     * @throws \RuntimeException
      */
-    public function read()
+    public function read(): string
     {
+        set_error_handler(function ($type, $message) use (&$error) {
+            $error = $message;
+        });
+
         $args = array_merge(
             [$this->filename],
             [false, null],
             func_get_args()
         );
 
-        return file_get_contents(...$args);
+        $content = file_get_contents(...$args);
+
+        restore_error_handler();
+
+        if (false === $content) {
+            throw new \RuntimeException($error);
+        }
+
+        return $content;
     }
 
     /**
