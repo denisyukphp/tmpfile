@@ -2,134 +2,27 @@
 
 namespace tmpfile;
 
-/**
- * Class for create temporary file as alternative to tmpfile() function
- *
- * @author  Aleksandr Denisyuk <a@denisyuk.by>
- * @license MIT
- */
 final class tmpfile
 {
-    /**
-     * @var string $filename Full path to temporary file
-     */
-    public $filename;
+    private $filename;
 
-    /**
-     * @var string $tempDir
-     */
-    private $tempDir;
-
-    /**
-     * Create instance a temporary file and register auto delete function
-     *
-     * @param mixed $data
-     * @param string|null $tempDir
-     */
-    public function __construct($data = null, $tempDir = null)
+    public function __construct()
     {
-        $this->tempDir = $tempDir;
-        $this->filename = $this->create();
+        $this->filename = \tempnam(\sys_get_temp_dir(), 'php');
 
-        register_shutdown_function([$this, 'delete']);
-
-        if ($data) {
-            $this->write($data);
-        }
-    }
-
-    /**
-     * Create file with unique name in temp directory
-     *
-     * @throws \Error
-     * @return string
-     */
-    private function create()
-    {
-        $filename = tempnam(null === $this->tempDir ? sys_get_temp_dir() : $this->tempDir, 'php');
-
-        if (!$filename) {
-            throw new \Error('The function tempnam() could not create a file in temporary directory.');
+        if (!$this->filename) {
+            throw new \RuntimeException('The function tempnam() could not create a file in temporary directory');
         }
 
-        return $filename;
-    }
-
-    /**
-     * Write the data to a file
-     *
-     * @param mixed $data
-     * @param int   $flags
-     *
-     * @return int|false
-     */
-    public function write($data, $flags = 0)
-    {
-        return file_put_contents($this->filename, $data, $flags);
-    }
-
-    /**
-     * Append the data to the end of the file
-     * 
-     * @param mixed $data
-     *
-     * @return int|false
-     */
-    public function puts($data)
-    {
-        return $this->write($data, FILE_APPEND);
-    }
-
-    /**
-     * Read entire file or chunk
-     *
-     * @param int $offset
-     * @param int $maxlen
-     *
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public function read(): string
-    {
-        set_error_handler(function ($type, $message) use (&$error) {
-            $error = $message;
+        \register_shutdown_function(function (): void {
+            if (\file_exists($this->filename)) {
+                \unlink($this->filename);
+            }
         });
-
-        $args = array_merge(
-            [$this->filename],
-            [false, null],
-            func_get_args()
-        );
-
-        $content = file_get_contents(...$args);
-
-        restore_error_handler();
-
-        if (false === $content) {
-            throw new \RuntimeException($error);
-        }
-
-        return $content;
     }
 
-    /**
-     * Delete a file
-     *
-     * @return bool
-     */
-    public function delete()
+    public function __toString(): string
     {
-        return @unlink($this->filename);
-    }
-
-    /**
-     * Transform the object in the filename
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->filename;
+        return \realpath($this->filename);
     }
 }

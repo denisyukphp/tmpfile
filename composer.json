@@ -1,7 +1,7 @@
 {
     "name": "denisyukphp/tmpfile",
-    "description": "Class for create temporary file as alternative to tmpfile() function.",
-    "keywords": ["file", "temporary", "temp", "tmp", "tempnam", "tmpfile", "auto", "delete"],
+    "description": "Alternative to tmpfile() function",
+    "keywords": ["tmpfile", "tempnam", "file", "temp", "tmp"],
     "license": "MIT",
     "authors": [
         {
@@ -12,11 +12,10 @@
         }
     ],
     "require": {
-        "php": "^7.2.9",
-        "symfony/filesystem": "^4.3"
+        "php": "^7.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^7.5"
     },
     "autoload": {
         "psr-4": {
