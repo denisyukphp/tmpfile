@@ -33,11 +33,26 @@ final class TmpFileManager
 
     private function initDeferredPurgeHandler(): void
     {
-        $deferredPurgeHandler = $this->config->getDeferredPurgeHandler();
+        $deferredPurgeHandler = $this->getConfig()->getDeferredPurgeHandler();
 
         if (!$deferredPurgeHandler instanceof DummyDeferredPurgeHandler) {
             $deferredPurgeHandler($this);
         }
+    }
+
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
+
+    public function getTmpFileHandler(): TmpFileHandlerInterface
+    {
+        return $this->tmpFileHandler;
+    }
+
+    public function getConfig(): ConfigInterface
+    {
+        return $this->config;
     }
 
     /**
@@ -48,10 +63,10 @@ final class TmpFileManager
      */
     public function createTmpFile(): TmpFile
     {
-        $temporaryDirectory = $this->config->getTemporaryDirectory();
-        $tmpFilePrefix = $this->config->getTmpFilePrefix();
+        $temporaryDirectory = $this->getConfig()->getTemporaryDirectory();
+        $tmpFilePrefix = $this->getConfig()->getTmpFilePrefix();
 
-        $fileName = $this->tmpFileHandler->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
+        $fileName = $this->getTmpFileHandler()->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
 
         try {
             $tmpFile = $this->makeTmpFile($fileName);
@@ -61,7 +76,7 @@ final class TmpFileManager
             );
         }
 
-        $this->container->addTmpFile($tmpFile);
+        $this->getContainer()->addTmpFile($tmpFile);
 
         return $tmpFile;
     }
@@ -113,12 +128,12 @@ final class TmpFileManager
      */
     public function removeTmpFile(TmpFile $tmpFile): void
     {
-        if ($this->container->hasTmpFile($tmpFile)) {
-            $this->container->removeTmpFile($tmpFile);
+        if ($this->getContainer()->hasTmpFile($tmpFile)) {
+            $this->getContainer()->removeTmpFile($tmpFile);
         }
 
-        if ($this->tmpFileHandler->existsTmpFile($tmpFile)) {
-            $this->tmpFileHandler->removeTmpFile($tmpFile);
+        if ($this->getTmpFileHandler()->existsTmpFile($tmpFile)) {
+            $this->getTmpFileHandler()->removeTmpFile($tmpFile);
         }
     }
 
@@ -127,8 +142,8 @@ final class TmpFileManager
      */
     public function purge(): void
     {
-        $tmpFiles = $this->container->getTmpFiles();
-        $checkUnclosedResources = $this->config->getCheckUnclosedResources();
+        $tmpFiles = $this->getContainer()->getTmpFiles();
+        $checkUnclosedResources = $this->getConfig()->getCheckUnclosedResources();
 
         if ($checkUnclosedResources) {
             $this->closeOpenedResources($tmpFiles);
