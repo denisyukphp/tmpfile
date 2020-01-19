@@ -12,15 +12,15 @@
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "symfony/filesystem": "^4.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"
     },
     "autoload": {
         "psr-4": {
-            "tmpfile\\": "src/"
+            "TmpFile\\": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
