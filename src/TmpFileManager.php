@@ -88,7 +88,7 @@ final class TmpFileManager
      *
      * @throws \ReflectionException
      */
-    protected function makeTmpFile(string $realPath): TmpFile
+    private function makeTmpFile(string $realPath): TmpFile
     {
         $tmpFileReflection = new \ReflectionClass(TmpFile::class);
 
