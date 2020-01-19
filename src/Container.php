@@ -4,9 +4,6 @@ namespace TmpFile;
 
 class Container implements ContainerInterface
 {
-    /**
-     * @var \SplObjectStorage
-     */
     protected $tmpFiles;
 
     public function __construct()

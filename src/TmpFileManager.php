@@ -8,11 +8,6 @@ use TmpFile\Exception\TmpFileCreateException;
 
 final class TmpFileManager
 {
-    /**
-     * @var ContainerInterface $container
-     * @var TmpFileHandlerInterface $tmpFileHandler
-     * @var ConfigInterface $config
-     */
     private
         $container,
         $tmpFileHandler,

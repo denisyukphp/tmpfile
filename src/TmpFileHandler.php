@@ -8,9 +8,6 @@ use TmpFile\Exception\TmpFileIOException;
 
 class TmpFileHandler implements TmpFileHandlerInterface
 {
-    /**
-     * @var Filesystem
-     */
     protected $filesystem;
 
     public function __construct(Filesystem $filesystem)
