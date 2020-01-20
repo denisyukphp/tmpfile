@@ -13,9 +13,9 @@ class Factory
         }
 
         $container = new Container();
-        $handler = new TmpFileHandler($filesystem);
+        $tmpFileHandler = new TmpFileHandler($filesystem);
         $config = (new ConfigBuilder)->build();
 
-        return new TmpFileManager($container, $handler, $config);
+        return new TmpFileManager($container, $tmpFileHandler, $config);
     }
 }

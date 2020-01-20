@@ -9,11 +9,11 @@ use TmpFile\TmpFileManager\Exception\TmpFileCreateException;
 
 final class TmpFileManager
 {
-    private
-        $container,
-        $tmpFileHandler,
-        $config
-    ;
+    private $container;
+
+    private $tmpFileHandler;
+
+    private $config;
 
     public function __construct(
         ContainerInterface $container,
@@ -67,9 +67,7 @@ final class TmpFileManager
         try {
             $tmpFile = $this->makeTmpFile($fileName);
         } catch (\ReflectionException $e) {
-            throw new TmpFileCreateException(
-                $e->getMessage()
-            );
+            throw new TmpFileCreateException($e->getMessage());
         }
 
         $this->getContainer()->addTmpFile($tmpFile);

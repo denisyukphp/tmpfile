@@ -7,18 +7,13 @@ use TmpFile\TmpFileManager\DeferredPurgeHandler\ShutdownDeferredPurgeHandler;
 
 class ConfigBuilder
 {
-    /**
-     * @var string $temporaryDirectory
-     * @var string $tmpFilePrefix
-     * @var DeferredPurgeHandlerInterface $deferredPurgeHandler
-     * @var bool $checkUnclosedResources
-     */
-    protected
-        $temporaryDirectory,
-        $tmpFilePrefix,
-        $deferredPurgeHandler,
-        $checkUnclosedResources
-    ;
+    private $temporaryDirectory;
+
+    private $tmpFilePrefix;
+
+    private $deferredPurgeHandler;
+
+    private $checkUnclosedResources;
 
     public function setTemporaryDirectory(string $temporaryDirectory): self
     {
