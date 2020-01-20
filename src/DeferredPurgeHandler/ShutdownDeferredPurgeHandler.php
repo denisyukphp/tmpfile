@@ -8,9 +8,7 @@ class ShutdownDeferredPurgeHandler implements DeferredPurgeHandlerInterface
 {
     public function __invoke(TmpFileManager $tmpFileManager): void
     {
-        $callback = function () use ($tmpFileManager) {
-            $tmpFileManager->purge();
-        };
+        $callback = new DeferredPurgeCallback($tmpFileManager);
 
         register_shutdown_function($callback);
     }

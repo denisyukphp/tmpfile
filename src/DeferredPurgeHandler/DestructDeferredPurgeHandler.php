@@ -8,9 +8,7 @@ class DestructDeferredPurgeHandler implements DeferredPurgeHandlerInterface
 {
     public function __invoke(TmpFileManager $tmpFileManager): void
     {
-        $callback = function () use ($tmpFileManager) {
-            $tmpFileManager->purge();
-        };
+        $callback = new DeferredPurgeCallback($tmpFileManager);
 
         new class($callback)
         {
