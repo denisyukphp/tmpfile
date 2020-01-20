@@ -1,6 +1,6 @@
 <?php
 
-namespace TmpFile\TmpFileManager\Exception;
+namespace TmpFileManager\Exception;
 
 class TmpFileCreateException extends \RuntimeException
 {

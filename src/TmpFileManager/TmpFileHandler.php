@@ -1,10 +1,10 @@
 <?php
 
-namespace TmpFile\TmpFileManager;
+namespace TmpFileManager;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
-use TmpFile\TmpFileManager\Exception\TmpFileIOException;
+use TmpFileManager\Exception\TmpFileIOException;
 use TmpFile\TmpFile;
 
 class TmpFileHandler implements TmpFileHandlerInterface

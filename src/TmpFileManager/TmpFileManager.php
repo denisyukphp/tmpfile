@@ -1,11 +1,11 @@
 <?php
 
-namespace TmpFile\TmpFileManager;
+namespace TmpFileManager;
 
 use TmpFile\TmpFile;
-use TmpFile\TmpFileManager\DeferredPurgeHandler\DummyDeferredPurgeHandler;
-use TmpFile\TmpFileManager\Exception\TmpFileIOException;
-use TmpFile\TmpFileManager\Exception\TmpFileCreateException;
+use TmpFileManager\DeferredPurgeHandler\DummyDeferredPurgeHandler;
+use TmpFileManager\Exception\TmpFileIOException;
+use TmpFileManager\Exception\TmpFileCreateException;
 
 final class TmpFileManager
 {

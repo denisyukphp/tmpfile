@@ -1,6 +1,6 @@
 <?php
 
-namespace TmpFile\TmpFileManager;
+namespace TmpFileManager;
 
 use TmpFile\TmpFile;
 

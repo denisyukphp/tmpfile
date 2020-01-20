@@ -1,6 +1,6 @@
 <?php
 
-namespace TmpFile\TmpFileManager;
+namespace TmpFileManager;
 
 use Symfony\Component\Filesystem\Filesystem;
 

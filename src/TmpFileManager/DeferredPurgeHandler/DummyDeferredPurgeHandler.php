@@ -1,8 +1,8 @@
 <?php
 
-namespace TmpFile\TmpFileManager\DeferredPurgeHandler;
+namespace TmpFileManager\DeferredPurgeHandler;
 
-use TmpFile\TmpFileManager\TmpFileManager;
+use TmpFileManager\TmpFileManager;
 
 final class DummyDeferredPurgeHandler implements DeferredPurgeHandlerInterface
 {

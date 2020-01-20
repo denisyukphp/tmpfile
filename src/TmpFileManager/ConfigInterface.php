@@ -1,8 +1,8 @@
 <?php
 
-namespace TmpFile\TmpFileManager;
+namespace TmpFileManager;
 
-use TmpFile\TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
+use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
 
 interface ConfigInterface
 {
