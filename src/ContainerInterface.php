@@ -14,4 +14,6 @@ interface ContainerInterface
      * @return TmpFile[]
      */
     public function getTmpFiles(): array;
+
+    public function getTmpFilesCount(): int;
 }

@@ -33,4 +33,9 @@ class Container implements ContainerInterface
     {
         return iterator_to_array($this->tmpFiles, false);
     }
+
+    public function getTmpFilesCount(): int
+    {
+        return $this->tmpFiles->count();
+    }
 }
