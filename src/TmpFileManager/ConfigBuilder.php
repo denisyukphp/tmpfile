@@ -1,9 +1,9 @@
 <?php
 
-namespace TmpFile;
+namespace TmpFile\TmpFileManager;
 
-use TmpFile\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
-use TmpFile\DeferredPurgeHandler\ShutdownDeferredPurgeHandler;
+use TmpFile\TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
+use TmpFile\TmpFileManager\DeferredPurgeHandler\ShutdownDeferredPurgeHandler;
 
 class ConfigBuilder
 {

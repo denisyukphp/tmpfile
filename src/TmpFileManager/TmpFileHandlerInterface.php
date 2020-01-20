@@ -1,8 +1,9 @@
 <?php
 
-namespace TmpFile;
+namespace TmpFile\TmpFileManager;
 
-use TmpFile\Exception\TmpFileIOException;
+use TmpFile\TmpFile;
+use TmpFile\TmpFileManager\Exception\TmpFileIOException;
 
 interface TmpFileHandlerInterface
 {

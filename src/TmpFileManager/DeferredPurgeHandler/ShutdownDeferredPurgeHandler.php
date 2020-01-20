@@ -1,8 +1,8 @@
 <?php
 
-namespace TmpFile\DeferredPurgeHandler;
+namespace TmpFile\TmpFileManager\DeferredPurgeHandler;
 
-use TmpFile\TmpFileManager;
+use TmpFile\TmpFileManager\TmpFileManager;
 
 class ShutdownDeferredPurgeHandler implements DeferredPurgeHandlerInterface
 {

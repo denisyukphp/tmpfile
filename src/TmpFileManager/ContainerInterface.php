@@ -1,6 +1,8 @@
 <?php
 
-namespace TmpFile;
+namespace TmpFile\TmpFileManager;
+
+use TmpFile\TmpFile;
 
 interface ContainerInterface
 {
