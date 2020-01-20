@@ -10,14 +10,14 @@ final class TmpFile
     private $fileName;
 
     /**
-     * @throws \RuntimeException
+     * @throws TmpFileException
      */
     public function __construct()
     {
         $this->fileName = tempnam(sys_get_temp_dir(), 'php');
 
         if (!$this->fileName) {
-            throw new \RuntimeException('The function tempnam() could not create a temp file');
+            throw new TmpFileException('The function tempnam() could not create a temp file');
         }
 
         register_shutdown_function(function (): void {
