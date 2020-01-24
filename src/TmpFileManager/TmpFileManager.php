@@ -6,6 +6,7 @@ use TmpFile\TmpFile;
 use TmpFileManager\DeferredPurgeHandler\DummyDeferredPurgeHandler;
 use TmpFileManager\Exception\TmpFileIOException;
 use TmpFileManager\Exception\TmpFileCreateException;
+use TmpFileManager\Exception\TmpFileContextCallbackException;
 
 final class TmpFileManager
 {
@@ -29,7 +30,7 @@ final class TmpFileManager
 
     private function initDeferredPurgeHandler(): void
     {
-        $deferredPurgeHandler = $this->getConfig()->getDeferredPurgeHandler();
+        $deferredPurgeHandler = $this->config->getDeferredPurgeHandler();
 
         if (!$deferredPurgeHandler instanceof DummyDeferredPurgeHandler) {
             $deferredPurgeHandler($this);
@@ -59,18 +60,20 @@ final class TmpFileManager
      */
     public function createTmpFile(): TmpFile
     {
-        $temporaryDirectory = $this->getConfig()->getTemporaryDirectory();
-        $tmpFilePrefix = $this->getConfig()->getTmpFilePrefix();
+        $temporaryDirectory = $this->config->getTemporaryDirectory();
+        $tmpFilePrefix = $this->config->getTmpFilePrefix();
 
-        $fileName = $this->getTmpFileHandler()->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
+        $fileName = $this->tmpFileHandler->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
 
         try {
             $tmpFile = $this->makeTmpFile($fileName);
         } catch (\ReflectionException $e) {
-            throw new TmpFileCreateException($e->getMessage());
+            throw new TmpFileCreateException(
+                $e->getMessage()
+            );
         }
 
-        $this->getContainer()->addTmpFile($tmpFile);
+        $this->container->addTmpFile($tmpFile);
 
         return $tmpFile;
     }
@@ -101,15 +104,26 @@ final class TmpFileManager
     /**
      * @param callable $callback
      *
+     * @return mixed
+     *
      * @throws TmpFileIOException
      * @throws TmpFileCreateException
+     * @throws TmpFileContextCallbackException
      */
-    public function createTmpFileContext(callable $callback): void
+    public function createTmpFileContext(callable $callback)
     {
         $tmpFile = $this->createTmpFile();
 
         try {
-            $callback($tmpFile);
+            $result = $callback($tmpFile);
+
+            if ($result instanceof TmpFile) {
+                throw new TmpFileContextCallbackException(
+                    sprintf("You can't return %s object to context callback function", TmpFile::class)
+                );
+            }
+
+            return $result;
         } finally {
             $this->removeTmpFile($tmpFile);
         }
@@ -122,12 +136,12 @@ final class TmpFileManager
      */
     public function removeTmpFile(TmpFile $tmpFile): void
     {
-        if ($this->getContainer()->hasTmpFile($tmpFile)) {
-            $this->getContainer()->removeTmpFile($tmpFile);
+        if ($this->container->hasTmpFile($tmpFile)) {
+            $this->container->removeTmpFile($tmpFile);
         }
 
-        if ($this->getTmpFileHandler()->existsTmpFile($tmpFile)) {
-            $this->getTmpFileHandler()->removeTmpFile($tmpFile);
+        if ($this->tmpFileHandler->existsTmpFile($tmpFile)) {
+            $this->tmpFileHandler->removeTmpFile($tmpFile);
         }
     }
 
@@ -136,12 +150,12 @@ final class TmpFileManager
      */
     public function purge(): void
     {
-        if (0 >= $this->getContainer()->getTmpFilesCount()) {
+        if (!$this->container->getTmpFilesCount()) {
             return;
         }
 
-        $tmpFiles = $this->getContainer()->getTmpFiles();
-        $checkUnclosedResources = $this->getConfig()->getCheckUnclosedResources();
+        $tmpFiles = $this->container->getTmpFiles();
+        $checkUnclosedResources = $this->config->getCheckUnclosedResources();
 
         if ($checkUnclosedResources) {
             $this->closeOpenedResources($tmpFiles);
