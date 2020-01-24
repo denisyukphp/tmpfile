@@ -6,7 +6,7 @@ use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
 
 class Config implements ConfigInterface
 {
-    protected $configBuilder;
+    private $configBuilder;
 
     public function __construct(ConfigBuilder $configBuilder)
     {

@@ -2,10 +2,10 @@
 
 namespace TmpFileManager;
 
+use TmpFile\TmpFile;
+use TmpFileManager\Exception\TmpFileIOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
-use TmpFileManager\Exception\TmpFileIOException;
-use TmpFile\TmpFile;
 
 class TmpFileHandler implements TmpFileHandlerInterface
 {
@@ -29,7 +29,9 @@ class TmpFileHandler implements TmpFileHandlerInterface
         try {
             return $this->filesystem->tempnam($temporaryDirectory, $fileNamePrefix);
         } catch (IOException $e) {
-            throw new TmpFileIOException($e->getMessage());
+            throw new TmpFileIOException(
+                $e->getMessage()
+            );
         }
     }
 
@@ -45,7 +47,9 @@ class TmpFileHandler implements TmpFileHandlerInterface
         try {
             return $this->filesystem->exists($tmpFile);
         } catch (IOException $e) {
-            throw new TmpFileIOException($e->getMessage());
+            throw new TmpFileIOException(
+                $e->getMessage()
+            );
         }
     }
 
@@ -59,7 +63,9 @@ class TmpFileHandler implements TmpFileHandlerInterface
         try {
             $this->filesystem->remove($tmpFile);
         } catch (IOException $e) {
-            throw new TmpFileIOException($e->getMessage());
+            throw new TmpFileIOException(
+                $e->getMessage()
+            );
         }
     }
 }
