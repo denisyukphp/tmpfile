@@ -3,13 +3,12 @@
 namespace TmpFileManager;
 
 use TmpFile\TmpFile;
-use TmpFileManager\Exception\TmpFileIOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 class TmpFileHandler implements TmpFileHandlerInterface
 {
-    protected $filesystem;
+    private $filesystem;
 
     public function __construct(Filesystem $filesystem)
     {

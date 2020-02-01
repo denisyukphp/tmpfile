@@ -6,7 +6,7 @@ use TmpFile\TmpFile;
 
 class Container implements ContainerInterface
 {
-    protected $tmpFiles;
+    private $tmpFiles;
 
     public function __construct()
     {

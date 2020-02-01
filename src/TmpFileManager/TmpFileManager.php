@@ -3,37 +3,50 @@
 namespace TmpFileManager;
 
 use TmpFile\TmpFile;
-use TmpFileManager\DeferredPurgeHandler\DummyDeferredPurgeHandler;
-use TmpFileManager\Exception\TmpFileIOException;
-use TmpFileManager\Exception\TmpFileCreateException;
-use TmpFileManager\Exception\TmpFileContextCallbackException;
+use TmpFileManager\DeferredPurgeHandler\VoidDeferredPurgeHandler;
+use Symfony\Component\Filesystem\Filesystem;
 
 final class TmpFileManager
 {
-    private $container;
-
-    private $tmpFileHandler;
-
-    private $config;
+    /**
+     * @var ContainerInterface $container
+     * @var TmpFileHandlerInterface $tmpFileHandler
+     * @var ConfigInterface $config
+     */
+    private
+        $container,
+        $tmpFileHandler,
+        $config
+    ;
 
     public function __construct(
-        ContainerInterface $container,
-        TmpFileHandlerInterface $tmpFileHandler,
-        ConfigInterface $config
+        ContainerInterface $container = null,
+        TmpFileHandlerInterface $tmpFileHandler = null,
+        ConfigInterface $config = null
     ) {
-        $this->container = $container;
-        $this->tmpFileHandler = $tmpFileHandler;
-        $this->config = $config;
+        $this->container = $container ?? new Container();
+        $this->tmpFileHandler = $tmpFileHandler ?? new TmpFileHandler(new Filesystem);
+        $this->config = $config ?? new Config(new ConfigBuilder);
 
         $this->initDeferredPurgeHandler();
+        $this->initGarbageCollectionHandler();
     }
 
     private function initDeferredPurgeHandler(): void
     {
         $deferredPurgeHandler = $this->config->getDeferredPurgeHandler();
 
-        if (!$deferredPurgeHandler instanceof DummyDeferredPurgeHandler) {
+        if (!$deferredPurgeHandler instanceof VoidDeferredPurgeHandler) {
             $deferredPurgeHandler($this);
+        }
+    }
+
+    private function initGarbageCollectionHandler(): void
+    {
+        $garbageCollectionHandler = $this->config->getGarbageCollectionHandler();
+
+        if ($this->config->getGarbageCollectionProbability()) {
+            $garbageCollectionHandler($this->config);
         }
     }
 

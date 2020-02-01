@@ -1,6 +1,6 @@
 <?php
 
-namespace TmpFileManager\Exception;
+namespace TmpFileManager;
 
 class TmpFileContextCallbackException extends \RuntimeException
 {

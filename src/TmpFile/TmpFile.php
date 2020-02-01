@@ -4,14 +4,8 @@ namespace TmpFile;
 
 final class TmpFile
 {
-    /**
-     * @var string
-     */
     private $fileName;
 
-    /**
-     * @throws \RuntimeException
-     */
     public function __construct()
     {
         $this->fileName = tempnam(sys_get_temp_dir(), 'php');

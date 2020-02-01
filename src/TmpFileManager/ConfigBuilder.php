@@ -3,21 +3,20 @@
 namespace TmpFileManager;
 
 use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
-use TmpFileManager\DeferredPurgeHandler\ShutdownDeferredPurgeHandler;
+use TmpFileManager\GarbageCollectionHandler\GarbageCollectionHandlerInterface;
 
 class ConfigBuilder
 {
-    /** @var string|null */
-    private $temporaryDirectory;
-
-    /** @var string|null */
-    private $tmpFilePrefix;
-
-    /** @var DeferredPurgeHandlerInterface|null */
-    private $deferredPurgeHandler;
-
-    /** @var bool|null */
-    private $checkUnclosedResources;
+    private
+        $temporaryDirectory,
+        $tmpFilePrefix,
+        $deferredPurgeHandler,
+        $checkUnclosedResources,
+        $garageCollectionProbability,
+        $garageCollectionDivisor,
+        $garageCollectionLifetime,
+        $garageCollectionHandler
+    ;
 
     public function setTemporaryDirectory(string $temporaryDirectory): self
     {
@@ -26,12 +25,8 @@ class ConfigBuilder
         return $this;
     }
 
-    public function getTemporaryDirectory(): string
+    public function getTemporaryDirectory(): ?string
     {
-        if (!$this->temporaryDirectory) {
-            $this->temporaryDirectory = sys_get_temp_dir();
-        }
-
         return $this->temporaryDirectory;
     }
 
@@ -42,12 +37,8 @@ class ConfigBuilder
         return $this;
     }
 
-    public function getTmpFilePrefix(): string
+    public function getTmpFilePrefix(): ?string
     {
-        if (!$this->tmpFilePrefix) {
-            $this->tmpFilePrefix = 'php';
-        }
-
         return $this->tmpFilePrefix;
     }
 
@@ -58,12 +49,8 @@ class ConfigBuilder
         return $this;
     }
 
-    public function getDeferredPurgeHandler(): DeferredPurgeHandlerInterface
+    public function getDeferredPurgeHandler(): ?DeferredPurgeHandlerInterface
     {
-        if (!$this->deferredPurgeHandler) {
-            $this->deferredPurgeHandler = new ShutdownDeferredPurgeHandler();
-        }
-
         return $this->deferredPurgeHandler;
     }
 
@@ -74,13 +61,57 @@ class ConfigBuilder
         return $this;
     }
 
-    public function getCheckUnclosedResources(): bool
+    public function getCheckUnclosedResources(): ?bool
     {
-        if (!$this->checkUnclosedResources) {
-            $this->checkUnclosedResources = true;
-        }
-
         return $this->checkUnclosedResources;
+    }
+
+    public function setGarageCollectionProbability(int $garageCollectionProbability): self
+    {
+        $this->garageCollectionProbability = $garageCollectionProbability;
+
+        return $this;
+    }
+
+    public function getGarageCollectionProbability(): ?int
+    {
+        return $this->garageCollectionProbability;
+    }
+
+    public function setGarbageCollectionDivisor(int $garageCollectionDivisor): self
+    {
+        $this->garageCollectionDivisor = $garageCollectionDivisor;
+
+        return $this;
+    }
+
+    public function getGarbageCollectionDivisor(): ?int
+    {
+        return $this->garageCollectionDivisor;
+    }
+
+    public function setGarbageCollectionLifetime(int $garageCollectionLifetime): self
+    {
+        $this->garageCollectionLifetime = $garageCollectionLifetime;
+
+        return $this;
+    }
+
+    public function getGarbageCollectionLifetime(): ?int
+    {
+        return $this->garageCollectionLifetime;
+    }
+
+    public function setGarbageCollectionHandler(GarbageCollectionHandlerInterface $garbageCollectionHandler): self
+    {
+        $this->garageCollectionHandler = $garbageCollectionHandler;
+
+        return $this;
+    }
+
+    public function getGarbageCollectionHandler(): ?GarbageCollectionHandlerInterface
+    {
+        return $this->garageCollectionHandler;
     }
 
     public function build(): Config

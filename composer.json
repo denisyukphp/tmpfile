@@ -1,6 +1,6 @@
 {
     "name": "denisyukphp/tmpfile",
-    "description": "Alternative to tmpfile() function",
+    "description": "Manage your temp files",
     "keywords": ["tmpfile", "tempnam", "file", "temp", "tmp"],
     "license": "MIT",
     "authors": [
@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "symfony/filesystem": "^4.4"
+        "symfony/filesystem": "^4.4",
+        "symfony/process": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"

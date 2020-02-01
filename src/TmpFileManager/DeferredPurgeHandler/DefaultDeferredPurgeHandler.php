@@ -4,7 +4,7 @@ namespace TmpFileManager\DeferredPurgeHandler;
 
 use TmpFileManager\TmpFileManager;
 
-class ShutdownDeferredPurgeHandler implements DeferredPurgeHandlerInterface
+class DefaultDeferredPurgeHandler implements DeferredPurgeHandlerInterface
 {
     public function __invoke(TmpFileManager $tmpFileManager): void
     {

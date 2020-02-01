@@ -3,7 +3,6 @@
 namespace TmpFileManager;
 
 use TmpFile\TmpFile;
-use TmpFileManager\Exception\TmpFileIOException;
 
 interface TmpFileHandlerInterface
 {
