@@ -3,6 +3,7 @@
 namespace TmpFileManager;
 
 use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
+use TmpFileManager\CloseOpenedResourcesHandler\CloseOpenedResourcesHandlerInterface;
 use TmpFileManager\GarbageCollectionHandler\GarbageCollectionHandlerInterface;
 
 interface ConfigInterface
@@ -14,6 +15,8 @@ interface ConfigInterface
     public function getDeferredPurgeHandler(): DeferredPurgeHandlerInterface;
 
     public function getCheckUnclosedResources(): bool;
+
+    public function getCloseOpenedResourcesHandler(): CloseOpenedResourcesHandlerInterface;
 
     public function getGarbageCollectionProbability(): int;
 

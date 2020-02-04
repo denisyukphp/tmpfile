@@ -4,6 +4,8 @@ namespace TmpFileManager;
 
 use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
 use TmpFileManager\DeferredPurgeHandler\DefaultDeferredPurgeHandler;
+use TmpFileManager\CloseOpenedResourcesHandler\CloseOpenedResourcesHandlerInterface;
+use TmpFileManager\CloseOpenedResourcesHandler\DefaultCloseOpenedResourcesHandler;
 use TmpFileManager\GarbageCollectionHandler\GarbageCollectionHandlerInterface;
 use TmpFileManager\GarbageCollectionHandler\DefaultGarbageCollectionHandler;
 
@@ -14,6 +16,7 @@ class Config implements ConfigInterface
         $tmpFilePrefix,
         $deferredPurgeHandler,
         $checkUnclosedResources,
+        $closeOpenedResourcesHandler,
         $garageCollectionProbability,
         $garageCollectionDivisor,
         $garageCollectionLifetime,
@@ -26,6 +29,7 @@ class Config implements ConfigInterface
         $this->tmpFilePrefix = $configBuilder->getTmpFilePrefix();
         $this->deferredPurgeHandler = $configBuilder->getDeferredPurgeHandler();
         $this->checkUnclosedResources = $configBuilder->getCheckUnclosedResources();
+        $this->closeOpenedResourcesHandler = $configBuilder->getCloseOpenedResourcesHandler();
         $this->garageCollectionProbability = $configBuilder->getGarageCollectionProbability();
         $this->garageCollectionDivisor = $configBuilder->getGarbageCollectionDivisor();
         $this->garageCollectionLifetime = $configBuilder->getGarbageCollectionLifetime();
@@ -66,6 +70,15 @@ class Config implements ConfigInterface
         }
 
         return $this->checkUnclosedResources;
+    }
+
+    public function getCloseOpenedResourcesHandler(): CloseOpenedResourcesHandlerInterface
+    {
+        if (!$this->closeOpenedResourcesHandler) {
+            $this->closeOpenedResourcesHandler = new DefaultCloseOpenedResourcesHandler();
+        }
+
+        return $this->closeOpenedResourcesHandler;
     }
 
     public function getGarbageCollectionProbability(): int

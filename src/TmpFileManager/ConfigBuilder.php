@@ -3,6 +3,7 @@
 namespace TmpFileManager;
 
 use TmpFileManager\DeferredPurgeHandler\DeferredPurgeHandlerInterface;
+use TmpFileManager\CloseOpenedResourcesHandler\CloseOpenedResourcesHandlerInterface;
 use TmpFileManager\GarbageCollectionHandler\GarbageCollectionHandlerInterface;
 
 class ConfigBuilder
@@ -12,6 +13,7 @@ class ConfigBuilder
         $tmpFilePrefix,
         $deferredPurgeHandler,
         $checkUnclosedResources,
+        $closeOpenedResourcesHandler,
         $garageCollectionProbability,
         $garageCollectionDivisor,
         $garageCollectionLifetime,
@@ -64,6 +66,18 @@ class ConfigBuilder
     public function getCheckUnclosedResources(): ?bool
     {
         return $this->checkUnclosedResources;
+    }
+
+    public function setCloseOpenedResourcesHandler(CloseOpenedResourcesHandlerInterface $closeOpenedResourcesHandler): self
+    {
+        $this->closeOpenedResourcesHandler = $closeOpenedResourcesHandler;
+
+        return $this;
+    }
+
+    public function getCloseOpenedResourcesHandler(): ?CloseOpenedResourcesHandlerInterface
+    {
+        return $this->closeOpenedResourcesHandler;
     }
 
     public function setGarageCollectionProbability(int $garageCollectionProbability): self

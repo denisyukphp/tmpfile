@@ -168,32 +168,16 @@ final class TmpFileManager
         }
 
         $tmpFiles = $this->container->getTmpFiles();
+
         $checkUnclosedResources = $this->config->getCheckUnclosedResources();
+        $closeOpenedResourcesHandler = $this->config->getCloseOpenedResourcesHandler();
 
         if ($checkUnclosedResources) {
-            $this->closeOpenedResources($tmpFiles);
+            $closeOpenedResourcesHandler($tmpFiles);
         }
 
         foreach ($tmpFiles as $tmpFile) {
             $this->removeTmpFile($tmpFile);
-        }
-    }
-
-    /**
-     * @param TmpFile[] $tmpFiles
-     */
-    private function closeOpenedResources(array $tmpFiles): void
-    {
-        foreach (get_resources('stream') as $resource) {
-            if (!stream_is_local($resource) ) {
-                continue;
-            }
-
-            $metadata = stream_get_meta_data($resource);
-
-            if (in_array($metadata['uri'], $tmpFiles)) {
-                fclose($resource);
-            }
         }
     }
 }
