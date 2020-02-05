@@ -163,11 +163,12 @@ final class TmpFileManager
      */
     public function purge(): void
     {
-        if (!$this->container->getTmpFilesCount()) {
+        $tmpFilesCount = $this->container->getTmpFilesCount();
+        $tmpFiles = $this->container->getTmpFiles();
+
+        if (!$tmpFilesCount) {
             return;
         }
-
-        $tmpFiles = $this->container->getTmpFiles();
 
         $checkUnclosedResources = $this->config->getCheckUnclosedResources();
         $closeOpenedResourcesHandler = $this->config->getCloseOpenedResourcesHandler();
