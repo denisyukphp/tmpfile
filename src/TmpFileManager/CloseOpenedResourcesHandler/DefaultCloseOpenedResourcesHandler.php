@@ -12,7 +12,7 @@ class DefaultCloseOpenedResourcesHandler implements CloseOpenedResourcesHandlerI
     public function __invoke(array $tmpFiles): void
     {
         foreach (get_resources('stream') as $resource) {
-            if (!stream_is_local($resource) ) {
+            if (!stream_is_local($resource)) {
                 continue;
             }
 
