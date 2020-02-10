@@ -14,7 +14,7 @@ final class TmpFile
             throw new \RuntimeException('The function tempnam() could not create a temp file');
         }
 
-        register_shutdown_function(function (): void {
+        register_shutdown_function(function () {
             if (file_exists($this->fileName)) {
                 unlink($this->fileName);
             }
