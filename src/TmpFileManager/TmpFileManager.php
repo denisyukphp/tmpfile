@@ -132,7 +132,7 @@ final class TmpFileManager
 
             if ($result instanceof TmpFile) {
                 throw new TmpFileContextCallbackException(
-                    sprintf("You can't return %s object to context callback function", TmpFile::class)
+                    sprintf("You can't return %s object from context callback function", TmpFile::class)
                 );
             }
 
