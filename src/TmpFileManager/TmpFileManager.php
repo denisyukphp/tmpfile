@@ -3,7 +3,7 @@
 namespace TmpFileManager;
 
 use TmpFile\TmpFile;
-use TmpFileManager\DeferredPurgeHandler\VoidDeferredPurgeHandler;
+use TmpFileManager\DeferredPurgeHandler\NullDeferredPurgeHandler;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class TmpFileManager
@@ -25,8 +25,8 @@ final class TmpFileManager
         ConfigInterface $config = null
     ) {
         $this->container = $container ?? new Container();
-        $this->tmpFileHandler = $tmpFileHandler ?? new TmpFileHandler(new Filesystem);
-        $this->config = $config ?? new Config(new ConfigBuilder);
+        $this->tmpFileHandler = $tmpFileHandler ?? new TmpFileHandler(new Filesystem());
+        $this->config = $config ?? new Config(new ConfigBuilder());
 
         $this->initDeferredPurgeHandler();
         $this->initGarbageCollectionHandler();
@@ -36,7 +36,7 @@ final class TmpFileManager
     {
         $deferredPurgeHandler = $this->config->getDeferredPurgeHandler();
 
-        if (!$deferredPurgeHandler instanceof VoidDeferredPurgeHandler) {
+        if (!$deferredPurgeHandler instanceof NullDeferredPurgeHandler) {
             $deferredPurgeHandler($this);
         }
     }
