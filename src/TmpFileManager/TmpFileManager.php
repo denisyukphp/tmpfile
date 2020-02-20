@@ -50,21 +50,6 @@ final class TmpFileManager
         }
     }
 
-    public function getContainer(): ContainerInterface
-    {
-        return $this->container;
-    }
-
-    public function getTmpFileHandler(): TmpFileHandlerInterface
-    {
-        return $this->tmpFileHandler;
-    }
-
-    public function getConfig(): ConfigInterface
-    {
-        return $this->config;
-    }
-
     /**
      * @return TmpFile
      *
@@ -76,10 +61,10 @@ final class TmpFileManager
         $temporaryDirectory = $this->config->getTemporaryDirectory();
         $tmpFilePrefix = $this->config->getTmpFilePrefix();
 
-        $fileName = $this->tmpFileHandler->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
+        $filename = $this->tmpFileHandler->getTmpFileName($temporaryDirectory, $tmpFilePrefix);
 
         try {
-            $tmpFile = $this->makeTmpFile($fileName);
+            $tmpFile = $this->makeTmpFile($filename);
         } catch (\ReflectionException $e) {
             throw new TmpFileCreateException(
                 $e->getMessage()
@@ -105,11 +90,11 @@ final class TmpFileManager
         /** @var TmpFile $tmpFile */
         $tmpFile = $tmpFileReflection->newInstanceWithoutConstructor();
 
-        $fileName = $tmpFileReflection->getProperty('fileName');
+        $filename = $tmpFileReflection->getProperty('filename');
 
-        $fileName->setAccessible(true);
+        $filename->setAccessible(true);
 
-        $fileName->setValue($tmpFile, $realPath);
+        $filename->setValue($tmpFile, $realPath);
 
         return $tmpFile;
     }
@@ -147,7 +132,7 @@ final class TmpFileManager
      *
      * @throws TmpFileIOException
      */
-    public function removeTmpFile(TmpFile $tmpFile): void
+    private function removeTmpFile(TmpFile $tmpFile): void
     {
         if ($this->container->hasTmpFile($tmpFile)) {
             $this->container->removeTmpFile($tmpFile);
