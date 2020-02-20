@@ -4,25 +4,25 @@ namespace TmpFile;
 
 final class TmpFile
 {
-    private $fileName;
+    private $filename;
 
     public function __construct()
     {
-        $this->fileName = tempnam(sys_get_temp_dir(), 'php');
+        $this->filename = tempnam(sys_get_temp_dir(), 'php');
 
-        if (!$this->fileName) {
-            throw new \RuntimeException('The function tempnam() could not create a temp file');
+        if (!$this->filename) {
+            throw new \RuntimeException('tempnam() could not create a temp file');
         }
 
         register_shutdown_function(function () {
-            if (file_exists($this->fileName)) {
-                unlink($this->fileName);
+            if (file_exists($this->filename)) {
+                unlink($this->filename);
             }
         });
     }
 
     public function __toString(): string
     {
-        return $this->fileName;
+        return $this->filename;
     }
 }
