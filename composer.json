@@ -1,6 +1,6 @@
 {
     "name": "denisyukphp/tmpfile",
-    "description": "Manage your temp files",
+    "description": "Temp files manager",
     "keywords": ["tmpfile", "tempnam", "temp", "tmp", "file", "manager"],
     "license": "MIT",
     "authors": [
