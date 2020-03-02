@@ -1,7 +1,7 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 use TmpFile\TmpFile;
+use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
 {

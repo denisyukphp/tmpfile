@@ -11,7 +11,7 @@ final class TmpFile
         $this->filename = tempnam(sys_get_temp_dir(), 'php');
 
         if (!$this->filename) {
-            throw new \RuntimeException('tempnam() could not create a temp file');
+            throw new \RuntimeException("The function tempnam() couldn't create a temp file");
         }
 
         register_shutdown_function(function () {

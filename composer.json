@@ -1,7 +1,7 @@
 {
     "name": "denisyukphp/tmpfile",
-    "description": "Temp files manager",
-    "keywords": ["tmpfile", "tempnam", "temp", "tmp", "file", "manager"],
+    "description": "Alternative to tmpfile() function",
+    "keywords": ["tmpfile", "tempnam", "temp", "tmp", "file"],
     "license": "MIT",
     "authors": [
         {
@@ -12,17 +12,14 @@
         }
     ],
     "require": {
-        "php": "^7.2",
-        "symfony/filesystem": "^4.4",
-        "symfony/process": "^5.0"
+        "php": "^7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"
     },
     "autoload": {
         "psr-4": {
-            "TmpFile\\": "src/TmpFile",
-            "TmpFileManager\\": "src/TmpFileManager"
+            "TmpFile\\": "src/"
         }
     }
 }
