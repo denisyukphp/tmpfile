@@ -21,5 +21,8 @@
         "psr-4": {
             "TmpFile\\": "src/"
         }
+    },
+    "suggest": {
+        "denisyukphp/tmpfile-manager": "Allows more advanced use temp files"
     }
 }
