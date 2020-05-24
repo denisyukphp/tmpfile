@@ -26,8 +26,5 @@
         "denisyukphp/tmpfile-manager": "Allows more advanced use temp files"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "test": "phpunit"
-    }
+    "prefer-stable": true
 }
