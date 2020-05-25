@@ -13,15 +13,22 @@ class TmpFileTest extends TestCase
         $this->tmpFile = new TmpFile();
     }
 
+    public function testFileExists()
+    {
+        $this->assertFileExists($this->tmpFile);
+    }
+
+    public function testUnlink()
+    {
+        unlink($this->tmpFile);
+
+        $this->assertFileNotExists($this->tmpFile);
+    }
+
     public function testIsString()
     {
         settype($this->tmpFile, 'string');
 
         $this->assertIsString($this->tmpFile);
-    }
-
-    public function testFileExists()
-    {
-        $this->assertFileExists($this->tmpFile);
     }
 }
