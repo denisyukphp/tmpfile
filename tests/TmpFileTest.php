@@ -1,8 +1,9 @@
 <?php
 
 use TmpFile\TmpFile;
+use PHPUnit\Framework\TestCase;
 
-class TmpFileTest extends \PHPUnit\Framework\TestCase
+class TmpFileTest extends TestCase
 {
     /** @var TmpFile */
     private $tmpFile;
@@ -12,22 +13,15 @@ class TmpFileTest extends \PHPUnit\Framework\TestCase
         $this->tmpFile = new TmpFile();
     }
 
-    public function testIsString(): string
+    public function testIsString()
     {
         settype($this->tmpFile, 'string');
 
         $this->assertIsString($this->tmpFile);
-
-        return $this->tmpFile;
     }
 
-    /**
-     * @param string $tmpFile
-     *
-     * @depends testIsString
-     */
-    public function testFileExists(string $tmpFile): void
+    public function testFileExists()
     {
-        $this->assertFileExists($tmpFile);
+        $this->assertFileExists($this->tmpFile);
     }
 }
