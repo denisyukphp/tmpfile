@@ -5,7 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
 {
-    /** @var TmpFile */
+    /**
+     * @var TmpFile
+     */
     private $tmpFile;
 
     public function setUp()
@@ -13,22 +15,41 @@ class TmpFileTest extends TestCase
         $this->tmpFile = new TmpFile();
     }
 
-    public function testFileExists()
+    /**
+     * @return TmpFile
+     */
+    public function testIsString(): TmpFile
     {
-        $this->assertFileExists($this->tmpFile);
+        $filename = (string) $this->tmpFile;
+
+        $this->assertIsString($filename);
+
+        return $this->tmpFile;
     }
 
-    public function testUnlink()
+    /**
+     * @depends testIsString
+     *
+     * @param TmpFile $tmpFile
+     *
+     * @return TmpFile
+     */
+    public function testFileExists(TmpFile $tmpFile): TmpFile
     {
-        unlink($this->tmpFile);
+        $this->assertFileExists($tmpFile);
 
-        $this->assertFileNotExists($this->tmpFile);
+        return $tmpFile;
     }
 
-    public function testIsString()
+    /**
+     * @depends testFileExists
+     *
+     * @param TmpFile $tmpFile
+     */
+    public function testUnlink(TmpFile $tmpFile)
     {
-        settype($this->tmpFile, 'string');
+        unlink($tmpFile);
 
-        $this->assertIsString($this->tmpFile);
+        $this->assertFileNotExists($tmpFile);
     }
 }
