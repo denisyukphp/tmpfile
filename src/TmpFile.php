@@ -2,7 +2,7 @@
 
 namespace TmpFile;
 
-final class TmpFile
+final class TmpFile implements TmpFileInterface
 {
     private $filename;
 
