@@ -1,6 +1,6 @@
 <?php
 
-namespace TmpFile;
+namespace Bulletproof\TmpFile;
 
 interface TmpFileInterface
 {

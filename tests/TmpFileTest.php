@@ -1,12 +1,15 @@
 <?php
 
-use TmpFile\TmpFile;
+namespace Bulletproof\TmpFile\Tests;
+
+use Bulletproof\TmpFile\TmpFile;
+use Bulletproof\TmpFile\TmpFileInterface;
 use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
 {
     /**
-     * @var TmpFile
+     * @var TmpFileInterface
      */
     private $tmpFile;
 
@@ -16,9 +19,9 @@ class TmpFileTest extends TestCase
     }
 
     /**
-     * @return TmpFile
+     * @return TmpFileInterface
      */
-    public function testIsString(): TmpFile
+    public function testIsString(): TmpFileInterface
     {
         $filename = (string) $this->tmpFile;
 
@@ -30,11 +33,11 @@ class TmpFileTest extends TestCase
     /**
      * @depends testIsString
      *
-     * @param TmpFile $tmpFile
+     * @param TmpFileInterface $tmpFile
      *
      * @return TmpFile
      */
-    public function testFileExists(TmpFile $tmpFile): TmpFile
+    public function testFileExists(TmpFileInterface $tmpFile): TmpFileInterface
     {
         $this->assertFileExists($tmpFile);
 
@@ -44,9 +47,9 @@ class TmpFileTest extends TestCase
     /**
      * @depends testFileExists
      *
-     * @param TmpFile $tmpFile
+     * @param TmpFileInterface $tmpFile
      */
-    public function testUnlink(TmpFile $tmpFile)
+    public function testUnlink(TmpFileInterface $tmpFile)
     {
         unlink($tmpFile);
 

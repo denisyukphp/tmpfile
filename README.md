@@ -1,9 +1,9 @@
-# TmpFile\TmpFile
+# TmpFile
 
 [![Build Status](https://travis-ci.org/denisyukphp/tmpfile.svg?branch=master)](https://travis-ci.org/denisyukphp/tmpfile) [![Total Downloads](https://poser.pugx.org/denisyukphp/tmpfile/downloads)](https://packagist.org/packages/denisyukphp/tmpfile) [![License](https://poser.pugx.org/denisyukphp/tmpfile/license)](https://packagist.org/packages/denisyukphp/tmpfile)
 
 ```
-composer require denisyukphp/tmpfile ^2
+composer require denisyukphp/tmpfile
 ```
 
 This package requires PHP 7.1 or later.
@@ -13,7 +13,7 @@ This package requires PHP 7.1 or later.
 ```php
 <?php
 
-use TmpFile\TmpFile;
+use Bulletproof\TmpFile\TmpFile;
 
 $tmpFile = new TmpFile();
 

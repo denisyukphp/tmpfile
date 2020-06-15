@@ -19,7 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TmpFile\\": "src/"
+            "Bulletproof\\TmpFile\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bulletproof\\TmpFile\\Tests\\": "tests/"
         }
     },
     "suggest": {
