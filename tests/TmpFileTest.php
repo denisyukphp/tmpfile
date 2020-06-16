@@ -9,25 +9,17 @@ use PHPUnit\Framework\TestCase;
 class TmpFileTest extends TestCase
 {
     /**
-     * @var TmpFileInterface
-     */
-    private $tmpFile;
-
-    public function setUp()
-    {
-        $this->tmpFile = new TmpFile();
-    }
-
-    /**
      * @return TmpFileInterface
      */
     public function testIsString(): TmpFileInterface
     {
-        $filename = (string) $this->tmpFile;
+        $tmpFile = new TmpFile();
+
+        $filename = (string) $tmpFile;
 
         $this->assertIsString($filename);
 
-        return $this->tmpFile;
+        return $tmpFile;
     }
 
     /**
