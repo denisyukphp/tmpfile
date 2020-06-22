@@ -13,7 +13,7 @@ This package requires PHP 7.1 or later.
 ```php
 <?php
 
-use Bulletproof\TmpFile\TmpFile;
+use TmpFile\TmpFile;
 
 $tmpFile = new TmpFile();
 
