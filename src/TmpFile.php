@@ -1,6 +1,6 @@
 <?php
 
-namespace Bulletproof\TmpFile;
+namespace TmpFile;
 
 final class TmpFile implements TmpFileInterface
 {

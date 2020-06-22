@@ -1,9 +1,9 @@
 <?php
 
-namespace Bulletproof\TmpFile\Tests;
+namespace TmpFile\Tests;
 
-use Bulletproof\TmpFile\TmpFile;
-use Bulletproof\TmpFile\TmpFileInterface;
+use TmpFile\TmpFile;
+use TmpFile\TmpFileInterface;
 use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
