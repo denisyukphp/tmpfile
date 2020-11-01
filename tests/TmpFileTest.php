@@ -3,46 +3,30 @@
 namespace TmpFile\Tests;
 
 use TmpFile\TmpFile;
-use TmpFile\TmpFileInterface;
 use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
 {
-    /**
-     * @return TmpFileInterface
-     */
-    public function testIsString(): TmpFileInterface
+    public function testIsString()
     {
         $tmpFile = new TmpFile();
 
         $filename = (string) $tmpFile;
 
         $this->assertIsString($filename);
-
-        return $tmpFile;
     }
 
-    /**
-     * @depends testIsString
-     *
-     * @param TmpFileInterface $tmpFile
-     *
-     * @return TmpFile
-     */
-    public function testFileExists(TmpFileInterface $tmpFile): TmpFileInterface
+    public function testFileExists()
     {
-        $this->assertFileExists($tmpFile);
+        $tmpFile = new TmpFile();
 
-        return $tmpFile;
+        $this->assertTrue(file_exists($tmpFile));
     }
 
-    /**
-     * @depends testFileExists
-     *
-     * @param TmpFileInterface $tmpFile
-     */
-    public function testUnlink(TmpFileInterface $tmpFile)
+    public function testUnlink()
     {
+        $tmpFile = new TmpFile();
+
         unlink($tmpFile);
 
         $this->assertFileNotExists($tmpFile);
