@@ -4,5 +4,8 @@ namespace TmpFile;
 
 interface TmpFileInterface
 {
-    public function __toString(): string;
+    /**
+     * @return string Should return a temp file name on a disk
+     */
+    public function __toString();
 }
