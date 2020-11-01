@@ -14,14 +14,22 @@ final class TmpFile implements TmpFileInterface
             throw new \RuntimeException("tempnam() couldn't create a temp file");
         }
 
-        register_shutdown_function(function () {
-            if (file_exists($this->filename)) {
-                unlink($this->filename);
-            }
-        });
+        register_shutdown_function([$this, 'delete']);
     }
 
-    public function __toString(): string
+    private function delete(): void
+    {
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
+    }
+
+    public function __destruct()
+    {
+        $this->delete();
+    }
+
+    public function __toString()
     {
         return $this->filename;
     }
