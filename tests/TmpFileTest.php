@@ -2,8 +2,8 @@
 
 namespace TmpFile\Tests;
 
-use TmpFile\TmpFile;
 use PHPUnit\Framework\TestCase;
+use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {

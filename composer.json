@@ -7,7 +7,7 @@
         {
             "name": "Aleksandr Denisyuk",
             "email": "a@denisyuk.by",
-            "homepage": "https://denisyuk.by",
+            "homepage": "https://denisyuk.by/",
             "role": "Developer"
         }
     ],
@@ -31,5 +31,8 @@
         "denisyukphp/tmpfile-manager": "Allows more advanced use temp files"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always"
+    }
 }

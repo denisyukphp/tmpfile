@@ -14,7 +14,9 @@ final class TmpFile implements TmpFileInterface
             throw new \RuntimeException("tempnam() couldn't create a temp file");
         }
 
-        register_shutdown_function([$this, 'delete']);
+        register_shutdown_function(function () {
+            $this->delete();
+        });
     }
 
     private function delete(): void
