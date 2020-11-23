@@ -22,4 +22,4 @@ file_put_contents($tmpFile, 'Meow!');
 rename($tmpFile, '/path/to/meow.txt');
 ```
 
-You can read more about temp file on [Habr](https://habr.com/ru/post/320078/).
+Read more about temp file on [Habr](https://habr.com/ru/post/320078/).
