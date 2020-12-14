@@ -15,20 +15,15 @@ final class TmpFile implements TmpFileInterface
         }
 
         register_shutdown_function(function () {
-            $this->delete();
+            $this->__destruct();
         });
-    }
-
-    private function delete(): void
-    {
-        if (file_exists($this->filename)) {
-            unlink($this->filename);
-        }
     }
 
     public function __destruct()
     {
-        $this->delete();
+        if (file_exists($this->filename)) {
+            unlink($this->filename);
+        }
     }
 
     public function __toString()
