@@ -1,6 +1,6 @@
 # TmpFile
 
-[![Build Status](https://travis-ci.org/denisyukphp/tmpfile.svg?branch=master)](https://travis-ci.org/denisyukphp/tmpfile) [![Total Downloads](https://poser.pugx.org/denisyukphp/tmpfile/downloads)](https://packagist.org/packages/denisyukphp/tmpfile) [![License](https://poser.pugx.org/denisyukphp/tmpfile/license)](https://packagist.org/packages/denisyukphp/tmpfile)
+[![Build Status](https://travis-ci.com/denisyukphp/tmpfile.svg?branch=master)](https://travis-ci.com/denisyukphp/tmpfile) [![Total Downloads](https://poser.pugx.org/denisyukphp/tmpfile/downloads)](https://packagist.org/packages/denisyukphp/tmpfile) [![License](https://poser.pugx.org/denisyukphp/tmpfile/license)](https://packagist.org/packages/denisyukphp/tmpfile)
 
 ```
 composer require denisyukphp/tmpfile
