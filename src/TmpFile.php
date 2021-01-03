@@ -19,15 +19,20 @@ final class TmpFile implements TmpFileInterface
         });
     }
 
+    public function getFilename(): string
+    {
+        return $this->filename;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getFilename();
+    }
+
     public function __destruct()
     {
         if (file_exists($this->filename)) {
             unlink($this->filename);
         }
-    }
-
-    public function __toString()
-    {
-        return $this->filename;
     }
 }
