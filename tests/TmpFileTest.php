@@ -7,23 +7,32 @@ use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {
-    public function testIsString()
+    public function testGetFilename(): void
     {
         $tmpFile = new TmpFile();
 
-        $filename = (string) $tmpFile;
+        $filename = $tmpFile->getFilename();
 
-        $this->assertIsString($filename);
+        $this->assertFileExists($filename);
     }
 
-    public function testFileExists()
+    public function testToString(): void
     {
         $tmpFile = new TmpFile();
 
-        $this->assertTrue(file_exists($tmpFile));
+        $filename = $tmpFile->__toString();
+
+        $this->assertNotEmpty($filename);
     }
 
-    public function testUnlink()
+    public function testFileExists(): void
+    {
+        $tmpFile = new TmpFile();
+
+        $this->assertFileExists($tmpFile);
+    }
+
+    public function testUnlink(): void
     {
         $tmpFile = new TmpFile();
 
