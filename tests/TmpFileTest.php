@@ -7,15 +7,6 @@ use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {
-    public function testGetFilename(): void
-    {
-        $tmpFile = new TmpFile();
-
-        $filename = $tmpFile->getFilename();
-
-        $this->assertFileExists($filename);
-    }
-
     public function testToString(): void
     {
         $tmpFile = new TmpFile();
