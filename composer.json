@@ -12,10 +12,13 @@
         }
     ],
     "require": {
-        "php": "^7.1|^8.0"
+        "php": "^7.2 || ^8.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5|^9.3"
+        "phpunit/phpunit": "^8.5 || ^9.4"
+    },
+    "suggest": {
+        "denisyukphp/tmpfile-manager": "Allows more advanced using temp files"
     },
     "autoload": {
         "psr-4": {
@@ -27,11 +30,6 @@
             "TmpFile\\Tests\\": "tests/"
         }
     },
-    "suggest": {
-        "denisyukphp/tmpfile-manager": "Allows more advanced use temp files"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always"
     }
