@@ -6,7 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![License](https://img.shields.io/packagist/l/denisyukphp/tmpfile?style=plastic&color=428F7E)](https://packagist.org/packages/denisyukphp/tmpfile)
 
-Alternative to tmpfile() function
+Alternative to tmpfile() function.
 
 ## Installation
 
