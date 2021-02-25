@@ -7,28 +7,21 @@ use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {
-    public function testToString(): void
-    {
-        $tmpFile = new TmpFile();
-
-        $filename = $tmpFile->__toString();
-
-        $this->assertNotEmpty($filename);
-    }
-
-    public function testFileExists(): void
+    public function testCreateTmpFile(): void
     {
         $tmpFile = new TmpFile();
 
         $this->assertFileExists($tmpFile);
     }
 
-    public function testUnlink(): void
+    public function testRemoveTmpFileOnGarbageCollection(): void
     {
-        $tmpFile = new TmpFile();
+        $callback = function () use (&$filename) {
+            $filename = (string) new TmpFile();
+        };
 
-        unlink($tmpFile);
+        $callback();
 
-        $this->assertFileNotExists($tmpFile);
+        $this->assertFileNotExists($filename);
     }
 }
