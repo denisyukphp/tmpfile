@@ -4,19 +4,30 @@ namespace TmpFile;
 
 final class TmpFile implements TmpFileInterface
 {
+    /**
+     * @var string
+     */
     private $filename;
+    /**
+     * @var \Closure
+     */
+    private $handler;
 
     public function __construct()
     {
         $this->filename = tempnam(sys_get_temp_dir(), 'php');
 
-        if (false === $this->filename || !is_file($this->filename)) {
-            throw new \RuntimeException("tempnam() couldn't create a temp file");
+        if (false === $this->filename) {
+            throw new \RuntimeException("tempnam() couldn't create temp file");
         }
 
-        register_shutdown_function(function () {
-            $this->__destruct();
-        });
+        $this->handler = static function (string $filename) {
+            if (file_exists($filename)) {
+                @unlink($filename);
+            }
+        };
+
+        register_shutdown_function($this->handler, $this->filename);
     }
 
     public function __toString(): string
@@ -26,8 +37,6 @@ final class TmpFile implements TmpFileInterface
 
     public function __destruct()
     {
-        if (file_exists($this->filename)) {
-            unlink($this->filename);
-        }
+        call_user_func($this->handler, $this->filename);
     }
 }
