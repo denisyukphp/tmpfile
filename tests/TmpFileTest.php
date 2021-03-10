@@ -28,9 +28,9 @@ class TmpFileTest extends TestCase
 
     public function testRemoveTmpFileOnFatalError(): void
     {
-        $eof = $this->getFatalErrorUseCase();
+        $fatalErrorUseCase = $this->getFatalErrorUseCase();
 
-        $process = new PhpProcess($eof, __DIR__);
+        $process = new PhpProcess($fatalErrorUseCase, __DIR__);
 
         $process->run();
 
