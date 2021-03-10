@@ -23,7 +23,7 @@ final class TmpFile implements TmpFileInterface
 
         $this->handler = static function (string $filename) {
             if (file_exists($filename)) {
-                @unlink($filename);
+                unlink($filename);
             }
         };
 
