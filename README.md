@@ -16,6 +16,8 @@ You can install the latest version via [Composer](https://getcomposer.org/):
 composer require denisyukphp/tmpfile
 ```
 
+This package requires PHP 7.2 or later.
+
 ## Quick usage
 
 A temp file will be removed after PHP finished:
