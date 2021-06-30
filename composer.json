@@ -18,9 +18,6 @@
         "phpunit/phpunit": "^8.5 || ^9.4",
         "symfony/process": "^4.4 || ^5.2"
     },
-    "suggest": {
-        "denisyukphp/tmpfile-manager": "Allows more advanced using temp files"
-    },
     "autoload": {
         "psr-4": {
             "TmpFile\\": "src/"
