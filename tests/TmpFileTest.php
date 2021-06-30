@@ -15,6 +15,15 @@ class TmpFileTest extends TestCase
         $this->assertFileExists($tmpFile);
     }
 
+    public function testGettingFilename(): void
+    {
+        $tmpFile = new TmpFile();
+
+        $filename = (string) $tmpFile;
+
+        $this->assertSame($filename, $tmpFile->getFilename());
+    }
+
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
         $callback = function () use (&$filename) {
@@ -39,6 +48,7 @@ class TmpFileTest extends TestCase
         $data = explode(PHP_EOL, $output);
 
         $this->assertRegExp('~' . sys_get_temp_dir() . '~', $data[0]);
+
         $this->assertFileNotExists($data[0]);
     }
 
@@ -53,7 +63,7 @@ use TmpFile\TmpFile;
 
 $tmpFile = new TmpFile();
 
-echo (string) $tmpFile;
+echo $tmpFile->getFilename();
 
 trigger_error('Fatal error!', E_USER_ERROR);
 EOF;
