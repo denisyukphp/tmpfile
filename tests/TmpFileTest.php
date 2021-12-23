@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TmpFile\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Process\PhpProcess;
 use TmpFile\TmpFile;
+use Symfony\Component\Process\PhpProcess;
+use PHPUnit\Framework\TestCase;
 
 class TmpFileTest extends TestCase
 {
@@ -12,16 +14,7 @@ class TmpFileTest extends TestCase
     {
         $tmpFile = new TmpFile();
 
-        $this->assertFileExists($tmpFile);
-    }
-
-    public function testGettingFilename(): void
-    {
-        $tmpFile = new TmpFile();
-
-        $filename = (string) $tmpFile;
-
-        $this->assertSame($filename, $tmpFile->getFilename());
+        $this->assertFileExists($tmpFile->getFilename());
     }
 
     public function testRemoveTmpFileOnGarbageCollection(): void
@@ -32,14 +25,12 @@ class TmpFileTest extends TestCase
 
         $callback();
 
-        $this->assertFileNotExists($filename);
+        $this->assertFileDoesNotExist($filename);
     }
 
     public function testRemoveTmpFileOnFatalError(): void
     {
-        $fatalErrorUseCase = $this->getFatalErrorUseCase();
-
-        $process = new PhpProcess($fatalErrorUseCase, __DIR__);
+        $process = new PhpProcess($this->getFatalErrorUseCase(), __DIR__);
 
         $process->run();
 
@@ -47,9 +38,9 @@ class TmpFileTest extends TestCase
 
         $data = explode(PHP_EOL, $output);
 
-        $this->assertRegExp('~' . sys_get_temp_dir() . '~', $data[0]);
+        $this->assertMatchesRegularExpression('~' . sys_get_temp_dir() . '~', $data[0]);
 
-        $this->assertFileNotExists($data[0]);
+        $this->assertFileDoesNotExist($data[0]);
     }
 
     private function getFatalErrorUseCase(): string
