@@ -1,17 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TmpFile;
 
 final class TmpFile implements TmpFileInterface
 {
-    /**
-     * @var string
-     */
-    private $filename;
-    /**
-     * @var \Closure
-     */
-    private $handler;
+    private string $filename;
+
+    private \Closure $handler;
 
     public function __construct()
     {
@@ -21,7 +18,7 @@ final class TmpFile implements TmpFileInterface
             throw new \RuntimeException('tempnam() could not create a temp file');
         }
 
-        $this->handler = static function (string $filename) {
+        $this->handler = static function (string $filename): void {
             if (file_exists($filename)) {
                 unlink($filename);
             }
@@ -42,6 +39,6 @@ final class TmpFile implements TmpFileInterface
 
     public function __destruct()
     {
-        call_user_func($this->handler, $this->filename);
+        ($this->handler)($this->filename);
     }
 }
