@@ -1,6 +1,6 @@
 # TmpFile
 
-[![Build Status](https://img.shields.io/travis/com/denisyukphp/tmpfile/master?style=plastic)](https://travis-ci.com/denisyukphp/tmpfile)
+[![Build Status](https://img.shields.io/travis/com/denisyukphp/tmpfile/master?style=plastic)](https://app.travis-ci.com/denisyukphp/tmpfile)
 [![Latest Stable Version](https://img.shields.io/packagist/v/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/denisyukphp/tmpfile?style=plastic&color=8892BF)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Total Downloads](https://img.shields.io/packagist/dt/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
@@ -16,7 +16,7 @@ You can install the latest version via [Composer](https://getcomposer.org/):
 composer require denisyukphp/tmpfile
 ```
 
-This package requires PHP 7.2 or later.
+This package requires PHP 8.0 or later.
 
 ## Quick usage
 
