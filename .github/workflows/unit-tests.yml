@@ -18,6 +18,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Cache Composer packages
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -29,4 +40,4 @@ jobs:
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Run Unit tests
-        run: vendor/bin/phpunit --colors=always --verbose --no-interaction
+        run: vendor/bin/phpunit --verbose --no-interaction
