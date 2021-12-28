@@ -20,7 +20,7 @@ class TmpFileTest extends TestCase
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
         $callback = function () use (&$filename) {
-            $filename = (new TmpFile())->getFilename();
+            $filename = (string) new TmpFile();
         };
 
         $callback();
