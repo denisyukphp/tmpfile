@@ -1,6 +1,5 @@
 # TmpFile
 
-[![Build Status](https://img.shields.io/travis/com/denisyukphp/tmpfile/master?style=plastic)](https://app.travis-ci.com/denisyukphp/tmpfile)
 [![Latest Stable Version](https://img.shields.io/packagist/v/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/denisyukphp/tmpfile?style=plastic&color=8892BF)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Total Downloads](https://img.shields.io/packagist/dt/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
