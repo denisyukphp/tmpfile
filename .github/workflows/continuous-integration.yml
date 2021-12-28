@@ -3,12 +3,12 @@ name: build
 on:
   push:
     paths-ignore:
-      - '**/LICENSE.txt'
-      - '**/README.md'
+      - '!LICENSE.txt'
+      - '!README.md'
   pull_request:
     paths-ignore:
-      - '**/LICENSE.txt'
-      - '**/README.md'
+      - '!LICENSE.txt'
+      - '!README.md'
 
 jobs:
   unit-tests:
