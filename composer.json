@@ -26,6 +26,9 @@
         "symfony/process": "^6.0",
         "vimeo/psalm": "^4.26"
     },
+    "suggest": {
+        "denisyukphp/tmpfile-manager": "Allows more advanced creating and removing temp files."
+    },
     "config": {
         "sort-packages": true
     },
