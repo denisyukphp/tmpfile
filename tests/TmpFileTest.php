@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace TmpFile\Tests;
 
-use TmpFile\TmpFile;
-use Symfony\Component\Process\PhpProcess;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\PhpProcess;
+use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {
@@ -21,7 +21,7 @@ class TmpFileTest extends TestCase
     {
         $filename = '';
 
-        $callback = function () use (&$filename) {
+        $callback = function () use (&$filename): void {
             $filename = (string) new TmpFile();
         };
 
@@ -36,7 +36,7 @@ class TmpFileTest extends TestCase
         $fatalErrorUseCase = <<<'EOF'
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . './../vendor/autoload.php';
 
 use TmpFile\TmpFile;
 
@@ -50,9 +50,9 @@ EOF;
         $process = new PhpProcess($fatalErrorUseCase, __DIR__);
         $process->run();
         $output = $process->getOutput();
-        $data = explode(PHP_EOL, $output);
+        $data = explode(\PHP_EOL, $output);
 
-        $this->assertMatchesRegularExpression('~' . sys_get_temp_dir() . '~', $data[0]);
+        $this->assertMatchesRegularExpression('~'.sys_get_temp_dir().'~', $data[0]);
         $this->assertFileDoesNotExist($data[0]);
     }
 }
