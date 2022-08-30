@@ -17,6 +17,9 @@
             "role": "Developer"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "require": {
         "php": "^8.0"
     },
@@ -28,9 +31,6 @@
     },
     "suggest": {
         "denisyukphp/tmpfile-manager": "Allows more advanced creating and removing temp files."
-    },
-    "config": {
-        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
