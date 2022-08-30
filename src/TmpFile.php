@@ -7,7 +7,6 @@ namespace TmpFile;
 final class TmpFile implements TmpFileInterface
 {
     private string $filename;
-
     private \Closure $handler;
 
     public function __construct()
@@ -15,7 +14,7 @@ final class TmpFile implements TmpFileInterface
         $this->filename = tempnam(sys_get_temp_dir(), 'php');
 
         if (false === $this->filename) {
-            throw new \RuntimeException('tempnam() could not create a temp file');
+            throw new \RuntimeException("tempnam() couldn't create a temp file.");
         }
 
         $this->handler = static function (string $filename): void {
