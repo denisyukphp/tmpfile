@@ -3,26 +3,24 @@ name: CI
 on: ['push', 'pull_request']
 
 jobs:
-  unit-tests:
-    name: PHP ${{ matrix.php }}
-
-    runs-on: ubuntu-latest
-
+  phpunit:
+    name: PHPUnit
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
       matrix:
-        php-versions: [8.0, 8.1]
-        stability: [prefer-lowest, prefer-stable]
+        php-versions: ['8.0', '8.1']
+        stability: ['prefer-lowest', 'prefer-stable']
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache Composer packages
+      - name: Cache Composer
         id: composer-cache
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
+        uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -36,8 +34,8 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Install Composer dependencies
+      - name: Update Composer
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
-      - name: Run Unit tests
+      - name: Run PHPUnit
         run: vendor/bin/phpunit --verbose --no-interaction
