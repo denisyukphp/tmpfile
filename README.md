@@ -1,6 +1,6 @@
 # TmpFile
 
-[![Build Status](https://img.shields.io/github/workflow/status/denisyukphp/tmpfile/build/master?style=plastic)](https://github.com/denisyukphp/tmpfile/actions/workflows/continuous-integration.yml)
+[![Build Status](https://img.shields.io/github/workflow/status/denisyukphp/tmpfile/build/master?style=plastic)](https://github.com/denisyukphp/tmpfile/actions/workflows/ci.yml)
 [![Latest Stable Version](https://img.shields.io/packagist/v/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/denisyukphp/tmpfile?style=plastic&color=8892BF)](https://packagist.org/packages/denisyukphp/tmpfile)
 [![Total Downloads](https://img.shields.io/packagist/dt/denisyukphp/tmpfile?style=plastic)](https://packagist.org/packages/denisyukphp/tmpfile)
