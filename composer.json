@@ -1,6 +1,6 @@
 {
     "name": "denisyukphp/tmpfile",
-    "description": "Alternative to tmpfile() function",
+    "description": "Alternative to tmpfile() function.",
     "keywords": [
         "tmpfile",
         "tempnam",
@@ -43,7 +43,8 @@
         }
     },
     "scripts": {
-        "phpunit": "./vendor/bin/phpunit --verbose --colors=always",
+        "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
+        "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
         "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --verbose --show-progress=dots",
         "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --verbose --dry-run --diff",
         "psalm": "./vendor/bin/psalm --show-info=true"
