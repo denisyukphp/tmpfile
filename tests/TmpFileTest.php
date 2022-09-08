@@ -14,6 +14,7 @@ class TmpFileTest extends TestCase
     {
         $tmpFile = new TmpFile();
 
+        $this->assertFileExists((string) $tmpFile);
         $this->assertFileExists($tmpFile->getFilename());
     }
 
@@ -50,7 +51,7 @@ EOF;
         $process = new PhpProcess($fatalErrorUseCase, __DIR__);
         $process->run();
         $output = $process->getOutput();
-        $data = explode(\PHP_EOL, $output);
+        $data = explode(PHP_EOL, $output);
 
         $this->assertMatchesRegularExpression('~'.sys_get_temp_dir().'~', $data[0]);
         $this->assertFileDoesNotExist($data[0]);
