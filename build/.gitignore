@@ -1,4 +1,4 @@
 *
 !.gitignore
-!./cache/
-!./cache/.gitkeep
+!/cache/
+!/cache/.gitkeep
