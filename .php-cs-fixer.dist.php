@@ -1,20 +1,16 @@
 <?php
 
 $finder = (new PhpCsFixer\Finder())
-    ->in([
-        './src/',
-        './tests/'
-    ])
+    ->in('./src/')
 ;
 
 return (new PhpCsFixer\Config())
-    ->setUsingCache(false)
+    ->setUsingCache(true)
+    ->setCacheFile('./build/cache/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        'strict_param' => true,
-        'single_line_throw' => false,
     ])
     ->setFinder($finder)
 ;
