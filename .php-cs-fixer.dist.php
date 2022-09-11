@@ -1,12 +1,15 @@
 <?php
 
 $finder = (new PhpCsFixer\Finder())
-    ->in('./src/')
+    ->in([
+        __DIR__.'/src/',
+        __DIR__.'/tests/',
+    ])
 ;
 
 return (new PhpCsFixer\Config())
     ->setUsingCache(true)
-    ->setCacheFile('./build/cache/.php-cs-fixer.cache')
+    ->setCacheFile(__DIR__.'/build/cache/php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
