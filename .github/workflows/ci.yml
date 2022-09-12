@@ -12,10 +12,13 @@ on:
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
+    runs-on: ${{ matrix.operating-system }}
     strategy:
       fail-fast: false
       matrix:
+        operating-system:
+          - 'ubuntu-latest'
+          - 'windows-latest'
         php-version:
           - '8.0'
           - '8.1'
@@ -38,14 +41,14 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-      - name: Cache dependencies
+      - name: Cache package dependencies
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-${{ hashFiles('**/composer.json') }}
           restore-keys: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-
 
-      - name: Install dependencies
+      - name: Install package dependencies
         run: composer update --${{ matrix.composer-stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Run PHPUnit
@@ -55,4 +58,4 @@ jobs:
         run: ./vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff --using-cache=no
 
       - name: Run Psalm
-        run: ./vendor/bin/psalm --no-progress --no-cache --output-format=github
+        run: ./vendor/bin/psalm --no-progress --no-cache --php-version=${{ matrix.php-version }} --output-format=github
