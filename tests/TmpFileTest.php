@@ -27,7 +27,6 @@ class TmpFileTest extends TestCase
             return (string) new TmpFile();
         })();
 
-        $this->assertNotEmpty($filename);
         $this->assertFileDoesNotExist($filename);
     }
 
