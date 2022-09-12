@@ -43,8 +43,8 @@
         }
     },
     "scripts": {
-        "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
-        "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
+        "phpunit": "./vendor/bin/phpunit --no-coverage",
+        "phpunit-coverage": "./vendor/bin/phpunit --coverage-text",
         "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --verbose --show-progress=dots",
         "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --verbose --dry-run --diff",
         "psalm": "./vendor/bin/psalm --show-info=true"
