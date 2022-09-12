@@ -1,41 +1,108 @@
-name: CI
+name: 'CI'
 
-on: ['push', 'pull_request']
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+  pull_request:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
 
 jobs:
-  phpunit:
-    name: PHPUnit
+  php-parallel-lint:
+    name: 'PHPParallelLint'
     runs-on: 'ubuntu-latest'
-    strategy:
-      fail-fast: false
-      matrix:
-        php-versions: ['8.0', '8.1']
-        stability: ['prefer-lowest', 'prefer-stable']
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Cache Composer
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
-          tools: composer:v2
+          php-version: latest
           coverage: none
 
-      - name: Update Composer
-        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run PHPParallelLint
+        run: composer php-parallel-lint -- --no-progress --ignore-fails
+
+  psalm:
+    name: 'Psalm'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run Psalm
+        run: composer psalm -- --no-progress --no-cache --output-format=github
+
+  php-cs-fixer:
+    name: 'PHPCsFixer'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run PHPCsFixer
+        run: composer php-cs-fixer:diff -- --no-interaction --using-cache=no
+
+  phpunit:
+    name: 'PHPUnit'
+    needs: ['php-parallel-lint', 'psalm', 'php-cs-fixer']
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system:
+          - 'ubuntu-latest'
+          - 'windows-latest'
+        php-version:
+          - '8.0'
+          - '8.1'
+        composer-dependency:
+          - 'lowest'
+          - 'highest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          dependency-versions: ${{ matrix.composer-dependency }}
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --verbose --no-interaction
+        run: composer phpunit -- --no-interaction --do-not-cache-result
