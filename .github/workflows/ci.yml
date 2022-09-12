@@ -11,8 +11,51 @@ on:
       - 'README.md'
 
 jobs:
+  php-cs-fixer:
+    name: 'PHPCsFixer'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run PHPCsFixer
+        run: ./vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff --using-cache=no
+
+  psalm:
+    name: 'Psalm'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run Psalm
+        run: ./vendor/bin/psalm --no-progress --no-cache --output-format=github
+
   phpunit:
+    name: 'PHPUnit'
+    needs: ['php-cs-fixer', 'psalm']
     runs-on: ${{ matrix.operating-system }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -36,11 +79,10 @@ jobs:
           php-version: ${{ matrix.php-version }}
           coverage: none
 
-      - name: Install Composer and package dependencies
+      - name: Install dependencies
         uses: ramsey/composer-install@v2
         with:
           dependency-versions: ${{ matrix.composer-dependency }}
-          composer-options: ${{ matrix.composer-options }}
 
       - name: Run PHPUnit
         run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
