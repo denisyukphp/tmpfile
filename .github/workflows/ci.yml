@@ -12,13 +12,10 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
       matrix:
-        operating-system:
-          - 'ubuntu-latest'
-          - 'windows-latest'
         php-version:
           - '8.0'
           - '8.1'
