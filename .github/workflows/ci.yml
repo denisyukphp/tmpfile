@@ -55,7 +55,9 @@ jobs:
         run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
 
       - name: Run PHPCsFixer
+        if: ${{ matrix.operating-system == 'ubuntu-latest' }}
         run: ./vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff --using-cache=no
 
       - name: Run Psalm
+        if: ${{ matrix.operating-system == 'ubuntu-latest' }}
         run: ./vendor/bin/psalm --no-progress --no-cache --php-version=${{ matrix.php-version }} --output-format=github
