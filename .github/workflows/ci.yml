@@ -11,26 +11,6 @@ on:
       - 'README.md'
 
 jobs:
-  php-cs-fixer:
-    name: 'PHPCsFixer'
-    runs-on: 'ubuntu-latest'
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: latest
-          coverage: none
-
-      - name: Install dependencies
-        uses: ramsey/composer-install@v2
-
-      - name: Run PHPCsFixer
-        run: ./vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff --using-cache=no
-
   psalm:
     name: 'Psalm'
     runs-on: 'ubuntu-latest'
@@ -49,11 +29,31 @@ jobs:
         uses: ramsey/composer-install@v2
 
       - name: Run Psalm
-        run: ./vendor/bin/psalm --no-progress --no-cache --output-format=github
+        run: composer psalm -- --no-progress --no-cache --output-format=github
+
+  php-cs-fixer:
+    name: 'PHPCsFixer'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run PHPCsFixer
+        run: composer php-cs-fixer:diff -- --ansi --no-interaction --using-cache=no
 
   phpunit:
     name: 'PHPUnit'
-    needs: ['php-cs-fixer', 'psalm']
+    needs: ['psalm', 'php-cs-fixer']
     runs-on: ${{ matrix.operating-system }}
 
     strategy:
@@ -85,4 +85,4 @@ jobs:
           dependency-versions: ${{ matrix.composer-dependency }}
 
       - name: Run PHPUnit
-        run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
+        run: composer phpunit -- --no-interaction --do-not-cache-result
