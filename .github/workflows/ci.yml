@@ -40,6 +40,7 @@ jobs:
         uses: ramsey/composer-install@v2
         with:
           dependency-versions: ${{ matrix.composer-dependency }}
+          composer-options: ${{ matrix.composer-options }}
 
       - name: Run PHPUnit
         run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
