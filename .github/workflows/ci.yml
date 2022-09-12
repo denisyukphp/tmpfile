@@ -11,6 +11,26 @@ on:
       - 'README.md'
 
 jobs:
+  php-parallel-lint:
+    name: 'PHPParallelLint'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Run Psalm
+        run: composer php-parallel-lint -- --no-progress --ignore-fails
+
   psalm:
     name: 'Psalm'
     runs-on: 'ubuntu-latest'
@@ -53,7 +73,7 @@ jobs:
 
   phpunit:
     name: 'PHPUnit'
-    needs: ['psalm', 'php-cs-fixer']
+    needs: ['php-parallel-lint', 'psalm', 'php-cs-fixer']
     runs-on: ${{ matrix.operating-system }}
 
     strategy:
