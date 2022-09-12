@@ -49,7 +49,7 @@ jobs:
         uses: ramsey/composer-install@v2
 
       - name: Run PHPCsFixer
-        run: composer php-cs-fixer:diff -- --ansi --no-interaction --using-cache=no
+        run: composer php-cs-fixer:diff -- --no-interaction --using-cache=no
 
   phpunit:
     name: 'PHPUnit'
