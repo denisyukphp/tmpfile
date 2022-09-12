@@ -1,41 +1,55 @@
-name: CI
+name: 'CI'
 
-on: ['push', 'pull_request']
+on:
+  push:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
+  pull_request:
+    paths-ignore:
+      - 'LICENSE'
+      - 'README.md'
 
 jobs:
-  phpunit:
-    name: PHPUnit
-    runs-on: 'ubuntu-latest'
+  build:
+    runs-on: ${{ matrix.operating-system }}
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.0', '8.1']
-        stability: ['prefer-lowest', 'prefer-stable']
+        operating-system:
+          - 'ubuntu-latest'
+          - 'windows-latest'
+        php-version:
+          - '8.0'
+          - '8.1'
+        composer-stability:
+          - 'prefer-lowest'
+          - 'prefer-stable'
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Cache Composer
-        id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           tools: composer:v2
           coverage: none
 
-      - name: Update Composer
-        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-
+
+      - name: Install dependencies
+        run: composer update --${{ matrix.composer-stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --verbose --no-interaction
+        run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
