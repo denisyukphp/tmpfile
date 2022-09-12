@@ -11,7 +11,7 @@ on:
       - 'README.md'
 
 jobs:
-  build:
+  phpunit:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       fail-fast: false
@@ -22,9 +22,9 @@ jobs:
         php-version:
           - '8.0'
           - '8.1'
-        composer-stability:
-          - 'prefer-lowest'
-          - 'prefer-stable'
+        composer-dependency:
+          - 'lowest'
+          - 'highest'
 
     steps:
       - name: Checkout repository
@@ -34,30 +34,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          tools: composer:v2
           coverage: none
 
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache package dependencies
-        uses: actions/cache@v3
+      - name: Install Composer and package dependencies
+      - uses: ramsey/composer-install@v2
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-${{ matrix.composer-stability }}-
-
-      - name: Install package dependencies
-        run: composer update --${{ matrix.composer-stability }} --prefer-dist --no-interaction --no-progress
+          dependency-versions: ${{ matrix.composer-dependency }}
 
       - name: Run PHPUnit
         run: ./vendor/bin/phpunit --no-interaction --do-not-cache-result --no-coverage
-
-      - name: Run PHPCsFixer
-        if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-        run: ./vendor/bin/php-cs-fixer fix --no-interaction --dry-run --diff --using-cache=no
-
-      - name: Run Psalm
-        if: ${{ matrix.operating-system == 'ubuntu-latest' }}
-        run: ./vendor/bin/psalm --no-progress --no-cache --php-version=${{ matrix.php-version }} --output-format=github
