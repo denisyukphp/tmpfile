@@ -11,8 +11,8 @@ on:
       - 'README.md'
 
 jobs:
-  php-parallel-lint:
-    name: 'PHPParallelLint'
+  parallel-lint:
+    name: 'ParallelLint'
     runs-on: 'ubuntu-latest'
 
     steps:
@@ -73,7 +73,7 @@ jobs:
 
   phpunit:
     name: 'PHPUnit'
-    needs: ['php-parallel-lint', 'psalm', 'php-cs-fixer']
+    needs: ['parallel-lint', 'psalm', 'php-cs-fixer']
     runs-on: ${{ matrix.operating-system }}
 
     strategy:

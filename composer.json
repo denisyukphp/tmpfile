@@ -48,12 +48,12 @@
         "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
         "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
         "phpunit-coverage-html": "./vendor/bin/phpunit --verbose --colors=always --coverage-html ./build/logs/phpunit-coverage/",
-        "php-parallel-lint": "./vendor/bin/parallel-lint --colors ./src/ ./tests/",
+        "parallel-lint": "./vendor/bin/parallel-lint --colors ./src/ ./tests/",
         "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --ansi --verbose --show-progress=dots",
         "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --diff",
         "psalm": "./vendor/bin/psalm --show-info=true",
         "test": [
-            "@php-parallel-lint",
+            "@parallel-lint",
             "@psalm",
             "@php-cs-fixer:diff",
             "@phpunit"
