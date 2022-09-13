@@ -47,6 +47,7 @@
     "scripts": {
         "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
         "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
+        "phpunit-coverage-html": "./vendor/bin/phpunit --verbose --colors=always --coverage-html ./build/logs/phpunit-coverage/",
         "php-parallel-lint": "./vendor/bin/parallel-lint --colors ./src/ ./tests/",
         "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --ansi --verbose --show-progress=dots",
         "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --diff",
