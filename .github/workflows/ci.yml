@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v2
 
-      - name: Run PHPParallelLint
+      - name: Run ParallelLint
         run: composer parallel-lint -- --no-progress --ignore-fails
 
   psalm:
