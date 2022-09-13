@@ -16,6 +16,13 @@ class TmpFileTest extends TestCase
         $this->assertFileExists($tmpFile->getFilename());
     }
 
+    public function testCreateTmpFileAndStringableBehavior(): void
+    {
+        $tmpFile = new TmpFile();
+
+        $this->assertFileExists((string) $tmpFile);
+    }
+
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
         $filename = (function (): string {
