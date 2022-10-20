@@ -3,10 +3,16 @@ name: 'CI'
 on:
   push:
     paths-ignore:
+      - 'build/**'
+      - '.editorconfig'
+      - '.gitattributes'
       - 'LICENSE'
       - 'README.md'
   pull_request:
     paths-ignore:
+      - 'build/**'
+      - '.editorconfig'
+      - '.gitattributes'
       - 'LICENSE'
       - 'README.md'
 

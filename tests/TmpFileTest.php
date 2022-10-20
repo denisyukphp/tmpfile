@@ -9,14 +9,14 @@ use TmpFile\TmpFile;
 
 class TmpFileTest extends TestCase
 {
-    public function testCreateTmpFileAndReturnFilename(): void
+    public function testCreateTmpFileWithReturningFilename(): void
     {
         $tmpFile = new TmpFile();
 
         $this->assertFileExists($tmpFile->getFilename());
     }
 
-    public function testCreateTmpFileAndStringableBehavior(): void
+    public function testCreateTmpFileWithStringableBehavior(): void
     {
         $tmpFile = new TmpFile();
 
@@ -25,10 +25,16 @@ class TmpFileTest extends TestCase
 
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
-        $filename = (function (): string {
-            return (new TmpFile())->getFilename();
-        })();
+        $filename = (new TmpFile())->getFilename();
 
         $this->assertFileDoesNotExist($filename);
+    }
+
+    public function testRemoveTmpFileThroughUnlink(): void
+    {
+        $tmpFile = new TmpFile();
+        unlink($tmpFile->getFilename());
+
+        $this->assertFileDoesNotExist($tmpFile->getFilename());
     }
 }
