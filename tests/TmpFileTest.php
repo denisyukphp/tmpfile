@@ -7,9 +7,9 @@ namespace TmpFile\Tests;
 use PHPUnit\Framework\TestCase;
 use TmpFile\TmpFile;
 
-class TmpFileTest extends TestCase
+final class TmpFileTest extends TestCase
 {
-    public function testCreateTmpFileWithReturningFilename(): void
+    public function testCreateTmpFile(): void
     {
         $tmpFile = new TmpFile();
 
@@ -25,14 +25,17 @@ class TmpFileTest extends TestCase
 
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
-        $filename = (new TmpFile())->getFilename();
+        $filename = (static function (): string {
+            return (new TmpFile())->getFilename();
+        })();
 
         $this->assertFileDoesNotExist($filename);
     }
 
-    public function testRemoveTmpFileThroughUnlink(): void
+    public function testRemoveTmpFileViaUnlink(): void
     {
         $tmpFile = new TmpFile();
+
         unlink($tmpFile->getFilename());
 
         $this->assertFileDoesNotExist($tmpFile->getFilename());
