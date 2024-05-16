@@ -14,7 +14,7 @@ final class TmpFile implements TmpFileInterface
         $this->filename = tempnam(sys_get_temp_dir(), 'php');
 
         if (false === $this->filename) {
-            throw new \RuntimeException("tempnam() couldn't create a temp file."); // @codeCoverageIgnore
+            throw new \RuntimeException('tempnam() couldn\'t create a temp file.'); // @codeCoverageIgnore
         }
 
         $this->handler = static function (string $filename): void {
