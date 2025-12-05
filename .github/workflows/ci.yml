@@ -50,7 +50,7 @@ jobs:
         run: composer psalm -- --show-info=false --no-progress --no-suggestions --no-cache
 
   rector:
-    name: 'rector'
+    name: 'Rector'
     runs-on: 'ubuntu-latest'
     steps:
       - name: Checkout repository
