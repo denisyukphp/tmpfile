@@ -1,11 +1,24 @@
-FROM php:8.2-cli
+FROM php:8.3-cli-trixie
 
-RUN \
+RUN set -eux ; \
     apt-get update ; \
-    apt-get install -y unzip ; \
+    apt-get install -y --no-install-recommends \
+        git \
+        unzip \
+        zip \
+        libzip-dev \
+        pkg-config \
+        ca-certificates ; \
+    rm -rf /var/lib/apt/lists/* ;
+
+RUN set -eux ; \
+    docker-php-ext-configure zip ; \
+    docker-php-ext-install -j"$(nproc)" zip ; \
     pecl install pcov ; \
     docker-php-ext-enable pcov ;
 
-COPY --from=composer:2.4 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer/composer:2.9 /usr/bin/composer /usr/local/bin/composer
 
-WORKDIR /usr/local/packages/tmpfile/
+WORKDIR /usr/local/packages/tmpfile
+
+CMD ["php", "-v"]

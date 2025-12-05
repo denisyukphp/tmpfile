@@ -12,8 +12,8 @@
     "authors": [
         {
             "name": "Aleksandr Denisyuk",
-            "email": "a@denisyuk.by",
-            "homepage": "https://denisyuk.by/",
+            "email": "aleksandr@denisyuk.email",
+            "homepage": "https://denisyuk.website/",
             "role": "Developer"
         }
     ],
@@ -24,12 +24,13 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.10",
+        "friendsofphp/php-cs-fixer": "^3.91",
         "php-parallel-lint/php-console-highlighter": "^1.0",
-        "php-parallel-lint/php-parallel-lint": "^1.3",
-        "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.17.0",
-        "vimeo/psalm": "^4.26"
+        "php-parallel-lint/php-parallel-lint": "^1.4",
+        "phpunit/phpunit": "^9.6",
+        "psalm/plugin-phpunit": "^0.18",
+        "rector/rector": "^2.2",
+        "vimeo/psalm": "^5.26"
     },
     "suggest": {
         "denisyukphp/tmpfile-manager": "Allows more advanced creating and removing temp files."
@@ -45,22 +46,26 @@
         }
     },
     "scripts": {
-        "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
-        "phpunit:clear-cache": "rm ./build/cache/phpunit.cache",
-        "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
-        "phpunit-coverage-html": "./vendor/bin/phpunit --verbose --colors=always --coverage-html ./build/logs/phpunit-coverage/",
         "parallel-lint": "./vendor/bin/parallel-lint --colors ./src/ ./tests/",
-        "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --verbose --ansi --show-progress=dots",
-        "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --verbose --ansi --dry-run --diff",
-        "php-cs-fixer:clear-cache": "rm ./build/cache/php-cs-fixer.cache",
         "psalm": "./vendor/bin/psalm --show-info=true",
         "psalm:clear-cache": "rm -rf ./build/cache/psalm/",
         "psalm:set-baseline": "@psalm --set-baseline=./psalm-baseline.xml --no-cache",
         "psalm:update-baseline": "@psalm --update-baseline --no-cache",
         "psalm:ignore-baseline": "@psalm --ignore-baseline --no-cache",
+        "rector:fix": "./vendor/bin/rector process",
+        "rector:diff": "./vendor/bin/rector process --dry-run",
+        "rector:clear-cache": "rm -rf ./build/cache/rector/",
+        "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --verbose --ansi --show-progress=dots",
+        "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --verbose --ansi --dry-run --diff",
+        "php-cs-fixer:clear-cache": "rm ./build/cache/php-cs-fixer.cache",
+        "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
+        "phpunit:clear-cache": "rm ./build/cache/phpunit.cache",
+        "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
+        "phpunit-coverage-html": "./vendor/bin/phpunit --verbose --colors=always --coverage-html ./build/logs/phpunit-coverage/",
         "test": [
             "@parallel-lint",
             "@psalm",
+            "@rector:diff",
             "@php-cs-fixer:diff",
             "@phpunit"
         ]

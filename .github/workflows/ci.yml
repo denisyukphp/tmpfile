@@ -26,7 +26,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: none
       - name: Install dependencies
         uses: ramsey/composer-install@v2
@@ -42,12 +42,28 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: none
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Run Psalm
         run: composer psalm -- --show-info=false --no-progress --no-suggestions --no-cache
+
+  rector:
+    name: 'rector'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - name: Install dependencies
+        uses: ramsey/composer-install@v2
+      - name: Run Rector
+        run: composer rector:diff -- --no-progress-bar --clear-cache
 
   php-cs-fixer:
     name: 'PHPCsFixer'
@@ -58,7 +74,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           coverage: none
       - name: Install dependencies
         uses: ramsey/composer-install@v2
@@ -67,7 +83,7 @@ jobs:
 
   phpunit:
     name: 'PHPUnit'
-    needs: ['parallel-lint', 'psalm', 'php-cs-fixer']
+    needs: ['parallel-lint', 'psalm', 'rector', 'php-cs-fixer']
     runs-on: ${{ matrix.operating-system }}
     strategy:
       fail-fast: false
@@ -79,6 +95,7 @@ jobs:
           - '8.0'
           - '8.1'
           - '8.2'
+          - '8.3'
         composer-dependency:
           - 'lowest'
           - 'highest'

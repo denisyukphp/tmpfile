@@ -25,9 +25,7 @@ final class TmpFileTest extends TestCase
 
     public function testRemoveTmpFileOnGarbageCollection(): void
     {
-        $filename = (static function (): string {
-            return (new TmpFile())->getFilename();
-        })();
+        $filename = (static fn (): string => (new TmpFile())->getFilename())();
 
         $this->assertFileDoesNotExist($filename);
     }
