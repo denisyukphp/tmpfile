@@ -11,11 +11,13 @@ final class TmpFile implements \Stringable, TmpFileInterface
 
     public function __construct()
     {
-        $this->filename = tempnam(sys_get_temp_dir(), 'php');
+        $filename = tempnam(sys_get_temp_dir(), 'php');
 
-        if (false === $this->filename) {
+        if (false === $filename || '' === $filename) {
             throw new \RuntimeException('tempnam() couldn\'t create a temp file.'); // @codeCoverageIgnore
         }
+
+        $this->filename = $filename;
 
         $this->handler = static function (string $filename): void {
             if (file_exists($filename)) {
@@ -26,11 +28,13 @@ final class TmpFile implements \Stringable, TmpFileInterface
         register_shutdown_function($this->handler, $this->filename);
     }
 
+    #[\Override]
     public function getFilename(): string
     {
         return $this->filename;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->filename;

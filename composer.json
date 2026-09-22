@@ -24,13 +24,13 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.91",
+        "friendsofphp/php-cs-fixer": "^3.95",
         "php-parallel-lint/php-console-highlighter": "^1.0",
         "php-parallel-lint/php-parallel-lint": "^1.4",
         "phpunit/phpunit": "^9.6",
-        "psalm/plugin-phpunit": "^0.18",
-        "rector/rector": "^2.2",
-        "vimeo/psalm": "^5.26"
+        "psalm/plugin-phpunit": "^0.19",
+        "rector/rector": "^2.6",
+        "vimeo/psalm": "^5.26 || ^6.18"
     },
     "suggest": {
         "denisyukphp/tmpfile-manager": "Allows more advanced creating and removing temp files."
