@@ -16,6 +16,8 @@ return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        'declare_strict_types' => ['strategy' => 'enforce'],
+        'phpdoc_align' => false,
     ])
     ->setFinder($finder)
 ;

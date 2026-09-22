@@ -1,4 +1,4 @@
-FROM php:8.3-cli-trixie
+FROM php:8.5-cli-trixie
 
 RUN set -eux ; \
     apt-get update ; \
@@ -17,7 +17,7 @@ RUN set -eux ; \
     pecl install pcov ; \
     docker-php-ext-enable pcov ;
 
-COPY --from=composer/composer:2.9 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer/composer:2.10 /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /usr/local/packages/tmpfile
 
