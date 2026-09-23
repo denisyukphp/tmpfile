@@ -21,16 +21,16 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^8.0"
+        "php": "^8.3"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.95",
         "php-parallel-lint/php-console-highlighter": "^1.0",
         "php-parallel-lint/php-parallel-lint": "^1.4",
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^12.5",
         "psalm/plugin-phpunit": "^0.19",
         "rector/rector": "^2.6",
-        "vimeo/psalm": "^5.26 || ^6.18"
+        "vimeo/psalm": "^6.18"
     },
     "suggest": {
         "denisyukphp/tmpfile-manager": "Allows more advanced creating and removing temp files."
@@ -58,10 +58,10 @@
         "php-cs-fixer:fix": "./vendor/bin/php-cs-fixer fix --verbose --ansi --show-progress=dots",
         "php-cs-fixer:diff": "./vendor/bin/php-cs-fixer fix --verbose --ansi --dry-run --diff",
         "php-cs-fixer:clear-cache": "rm ./build/cache/php-cs-fixer.cache",
-        "phpunit": "./vendor/bin/phpunit --verbose --colors=always --no-coverage",
-        "phpunit:clear-cache": "rm ./build/cache/phpunit.cache",
-        "phpunit-coverage": "./vendor/bin/phpunit --verbose --colors=always --coverage-text",
-        "phpunit-coverage-html": "./vendor/bin/phpunit --verbose --colors=always --coverage-html ./build/logs/phpunit-coverage/",
+        "phpunit": "./vendor/bin/phpunit --display-all-issues --colors=always --no-coverage",
+        "phpunit:clear-cache": "rm -rf ./build/cache/phpunit/",
+        "phpunit-coverage": "./vendor/bin/phpunit --display-all-issues --colors=always --coverage-text",
+        "phpunit-coverage-html": "./vendor/bin/phpunit --display-all-issues --colors=always --coverage-html ./build/logs/phpunit-coverage/",
         "test": [
             "@parallel-lint",
             "@psalm",

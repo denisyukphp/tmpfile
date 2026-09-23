@@ -6,14 +6,14 @@ on:
       - 'build/**'
       - '.editorconfig'
       - '.gitattributes'
-      - 'LICENSE'
+      - 'LICENSE.md'
       - 'README.md'
   pull_request:
     paths-ignore:
       - 'build/**'
       - '.editorconfig'
       - '.gitattributes'
-      - 'LICENSE'
+      - 'LICENSE.md'
       - 'README.md'
 
 jobs:
@@ -92,9 +92,6 @@ jobs:
           - 'ubuntu-latest'
           - 'windows-latest'
         php-version:
-          - '8.0'
-          - '8.1'
-          - '8.2'
           - '8.3'
           - '8.4'
           - '8.5'

@@ -16,7 +16,7 @@ You can install the latest version via [Composer](https://getcomposer.org/):
 composer require denisyukphp/tmpfile
 ```
 
-This package requires PHP 8.0 or later.
+This package requires PHP 8.3 or later.
 
 ## Quick usage
 

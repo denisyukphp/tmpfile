@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TmpFile;
 
-final class TmpFile implements \Stringable, TmpFileInterface
+final readonly class TmpFile implements \Stringable, TmpFileInterface
 {
     private string $filename;
     private \Closure $handler;

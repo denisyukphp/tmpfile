@@ -16,7 +16,7 @@ return RectorConfig::configure()
         __DIR__.'/tests',
     ])
     ->withPhpSets(
-        php80: true,
+        php83: true,
     )
     ->withSets([
         SetList::DEAD_CODE,
