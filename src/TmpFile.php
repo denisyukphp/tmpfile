@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TmpFile;
 
-final readonly class TmpFile implements \Stringable, TmpFileInterface
+final readonly class TmpFile implements TmpFileInterface
 {
     private string $filename;
     private \Closure $handler;
@@ -14,14 +14,26 @@ final readonly class TmpFile implements \Stringable, TmpFileInterface
         $filename = tempnam(sys_get_temp_dir(), 'php');
 
         if (false === $filename || '' === $filename) {
-            throw new \RuntimeException('tempnam() couldn\'t create a temp file.'); // @codeCoverageIgnore
+            throw new \RuntimeException('tempnam() couldn\'t create a temporary file.'); // @codeCoverageIgnore
         }
 
         $this->filename = $filename;
 
-        $this->handler = static function (string $filename): void {
-            if (file_exists($filename)) {
-                unlink($filename);
+        $isRemoved = false;
+
+        $this->handler = static function (string $filename) use (&$isRemoved): void {
+            if ($isRemoved) {
+                return; // @codeCoverageIgnore
+            }
+
+            $isRemoved = true;
+
+            try {
+                if (file_exists($filename) && !@unlink($filename)) {
+                    throw new \RuntimeException(\sprintf('Couldn\'t remove temporary file "%s".', $filename));
+                }
+            } catch (\Throwable $e) {
+                error_log($e->getMessage());
             }
         };
 
